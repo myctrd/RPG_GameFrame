@@ -1,0 +1,5 @@
+0@10001@Hello world
+1@10002@Hello world!!
+0@10001@QNNN Hello world
+1@10002@QNMM Hello world!!
+0@10001@What the fuck@LoadScene_1
