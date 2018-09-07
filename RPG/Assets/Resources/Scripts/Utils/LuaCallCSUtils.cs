@@ -36,4 +36,9 @@ public class LuaCallCSUtils {
     {
         return GameManager.m_instance.GetPlayerData();
     }
+
+    public static void SetPlayerEquip(int slot, int id)
+    {
+        GameManager.m_instance.SetPlayerEquip(slot, id);
+    }
 }

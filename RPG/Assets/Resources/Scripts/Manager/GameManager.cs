@@ -50,5 +50,10 @@ public class GameManager : MonoBehaviour {
         m_Player.SetRolePlayer(role);
     }
 
+    public void SetPlayerEquip(int slot, int id)
+    {
+        m_Player.SetPlayerEquip(slot, id);
+    }
+
 }
 

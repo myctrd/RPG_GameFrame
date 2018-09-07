@@ -82,10 +82,16 @@ local function InitItemInfo(index, data)
 		local playerData = CS.LuaCallCSUtils.GetPlayerData()
 		if playerData.equip[tonumber(data["SLOT"]) - 1] == tonumber(data["ID"]) then
 			self["txt_op"]:SetText("Take off")
+			self["btn_op"]:AddListener(function()
+				CS.LuaCallCSUtils.SetPlayerEquip(tonumber(data["SLOT"]) - 1, 0)
+				GlobalHooks.uiUitls:ShowFloatingMsg(GetText("Tip_EquipSuccess"))
+				self.ui:Close()
+			end) 
 		else
 			self["txt_op"]:SetText(GetText("Equip"))
 			if playerData.m_Pro == tonumber(data["PRO"]) then
 				self["btn_op"]:AddListener(function()
+					CS.LuaCallCSUtils.SetPlayerEquip(tonumber(data["SLOT"]) - 1, tonumber(data["ID"]))
 					GlobalHooks.uiUitls:ShowFloatingMsg(GetText("Tip_EquipSuccess"))
 					self.ui:Close()
 				end) 
