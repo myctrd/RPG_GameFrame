@@ -31,12 +31,22 @@ namespace XLua.CSObjectWrap
 			Utils.EndObjectRegister(type, L, translator, null, null,
 			    null, null, null);
 
-		    Utils.BeginClassRegister(type, L, __CreateInstance, 6, 1, 1);
+		    Utils.BeginClassRegister(type, L, __CreateInstance, 16, 1, 1);
 			Utils.RegisterFunc(L, Utils.CLS_IDX, "PrintTest", _m_PrintTest_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "GetRoleAvailable", _m_GetRoleAvailable_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "SetRolePlayer", _m_SetRolePlayer_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "GetPlayerData", _m_GetPlayerData_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "SetPlayerEquip", _m_SetPlayerEquip_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "StartBattle", _m_StartBattle_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "GetBattlePlayerData", _m_GetBattlePlayerData_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "GetEnemyData", _m_GetEnemyData_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "RoleAttackRole", _m_RoleAttackRole_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "LoadGameScene", _m_LoadGameScene_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "UnloadGameScene", _m_UnloadGameScene_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "LoadData", _m_LoadData_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "AddEquip", _m_AddEquip_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "SetInteraction", _m_SetInteraction_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "PlayerPrefsHasKey", _m_PlayerPrefsHasKey_xlua_st_);
             
 			
             
@@ -194,6 +204,252 @@ namespace XLua.CSObjectWrap
                     
                     
                     return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_StartBattle_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+            
+            
+                
+                {
+                    int _id = LuaAPI.xlua_tointeger(L, 1);
+                    
+                    LuaCallCSUtils.StartBattle( _id );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_GetBattlePlayerData_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            
+                
+                {
+                    
+                        RolePlayer gen_ret = LuaCallCSUtils.GetBattlePlayerData(  );
+                        translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_GetEnemyData_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            
+                
+                {
+                    
+                        RoleEnemy gen_ret = LuaCallCSUtils.GetEnemyData(  );
+                        translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_RoleAttackRole_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            
+                
+                {
+                    RoleBase _a = (RoleBase)translator.GetObject(L, 1, typeof(RoleBase));
+                    RoleBase _b = (RoleBase)translator.GetObject(L, 2, typeof(RoleBase));
+                    
+                    LuaCallCSUtils.RoleAttackRole( _a, _b );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_LoadGameScene_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+            
+            
+                
+                {
+                    
+                    LuaCallCSUtils.LoadGameScene(  );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_UnloadGameScene_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+            
+            
+                
+                {
+                    
+                    LuaCallCSUtils.UnloadGameScene(  );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_LoadData_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+            
+            
+                
+                {
+                    
+                    LuaCallCSUtils.LoadData(  );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_AddEquip_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+            
+            
+                
+                {
+                    string _id = LuaAPI.lua_tostring(L, 1);
+                    string _count = LuaAPI.lua_tostring(L, 2);
+                    
+                    LuaCallCSUtils.AddEquip( _id, _count );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_SetInteraction_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+            
+            
+                
+                {
+                    bool _state = LuaAPI.lua_toboolean(L, 1);
+                    
+                    LuaCallCSUtils.SetInteraction( _state );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_PlayerPrefsHasKey_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+            
+            
+                
+                {
+                    string _key = LuaAPI.lua_tostring(L, 1);
+                    
+                        bool gen_ret = LuaCallCSUtils.PlayerPrefsHasKey( _key );
+                        LuaAPI.lua_pushboolean(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
                 }
                 
             } catch(System.Exception gen_e) {

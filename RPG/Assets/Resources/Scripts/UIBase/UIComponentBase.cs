@@ -5,6 +5,11 @@ using UnityEngine;
 public class UIComponentBase : UIBase
 {
 
+    public void ResetPosition()
+    {
+        transform.localPosition = Vector3.zero;
+    }
+
     public override void Close()
     {
         base.Close();

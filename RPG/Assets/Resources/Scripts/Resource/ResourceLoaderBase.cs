@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using System;
-using System.Collections;
 using System.IO;
-using System.Text;
 
 public class ResourceLoaderBase : MonoBehaviour {
 

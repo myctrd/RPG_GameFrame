@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -10,11 +9,30 @@ public class GameManager : MonoBehaviour {
 
     void Awake()
 	{
+        //PlayerPrefs.DeleteAll();
 		if(m_instance == null)
 		{
 			m_instance = this;
 		}
-	}
+        DontDestroyOnLoad(gameObject);
+        LoadScene("Void");
+    }
+
+    public void LoadScene(string scene)
+    {
+        SceneManager.LoadScene(scene);
+    }
+
+    public void LoadGameScene()
+    {
+        LoadScene("Game");
+        int mapID = 1;
+        if (PlayerPrefs.HasKey(GetPlayerData().m_Name + "_CurrentMap"))
+        {
+            mapID = PlayerPrefs.GetInt(GetPlayerData().m_Name + "_CurrentMap");
+        }
+        LoadMap(mapID);
+    }
 
     void Start()
     {
@@ -35,10 +53,33 @@ public class GameManager : MonoBehaviour {
     }
 
     private RolePlayer m_Player;
+    private RoleEnemy m_Enemy;
+
+    public int CheckEventState(string eventID)  //0.未触发 1.成功 2.失败
+    {
+        if(PlayerPrefs.HasKey(GetPlayerData().m_Name + "_Event_" + eventID))
+        {
+            return PlayerPrefs.GetInt(GetPlayerData().m_Name + "_Event_" + eventID);
+        }
+        else
+        {
+            return 0;
+        }
+    }
 
     public RolePlayer GetPlayerData()
     {
         return m_Player;
+    }
+
+    public RoleEnemy GetEnemyData(int id)
+    {
+        if(m_Enemy == null)
+        {
+            m_Enemy = gameObject.AddComponent<RoleEnemy>();
+            m_Enemy.SetRoleEnemy(id);
+        }
+        return m_Enemy;
     }
 
     public void SetRolePlayer(int role)
@@ -53,6 +94,26 @@ public class GameManager : MonoBehaviour {
     public void SetPlayerEquip(int slot, int id)
     {
         m_Player.SetPlayerEquip(slot, id);
+    }
+
+    private int mapID = 0;
+
+    public void LoadMap(int id)
+    {
+        mapID = id;
+        TryLoadMap();
+    }
+
+    void TryLoadMap()
+    {
+        if (GameSceneManager.m_instance != null)
+        {
+            GameSceneManager.m_instance.LoadMap(mapID);
+        }
+        else
+        {
+            Invoke("TryLoadMap", 0.5f);
+        }
     }
 
 }

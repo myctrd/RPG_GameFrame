@@ -15,6 +15,25 @@ function self:StringSplit(s, sep)
     return fields
 end
 
+function self:Init()
+
+	GlobalHooks.eventManager:AddListener("Common.FloatingMsg", function(name, params)
+		self:ShowFloatingMsg(GetText(params.txt))
+	end)
+	
+	GlobalHooks.eventManager:AddListener("Dialog.CommonDialog", function(name, params)
+		GlobalHooks.openUI:OpenUIPanel("UIPanelDialog", 2, {d_type = 1, name = params.name ,txt = params.txt})
+	end)
+	
+	GlobalHooks.eventManager:AddListener("Dialog.NPCDialog", function(name, params)
+		GlobalHooks.openUI:OpenUIPanel("UIPanelDialog", 2, {d_type = 2, npcID = params.npcID})
+	end)
+
+	GlobalHooks.eventManager:AddListener("Battle.BattleTips", function(name, params)
+		GlobalHooks.openUI:InitUIComponent("UIComponentBattleTips", nil, 4, {txt = params.txt})
+	end)
+end
+
 function self:Test()
 	print("test")
 end

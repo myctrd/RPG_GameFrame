@@ -12,18 +12,16 @@ GlobalHooks = {
 	"Chloe",},
 }
 
+function OpenUIPanel(panel)
+	GlobalHooks.openUI:OpenUIPanel(panel)
+end
+
 function GetData(tb, id)
 	return GlobalHooks.dataReader:FindData(tb, id)
 end
 
 function InitUI()
 	GlobalHooks.item:Init()
-	GlobalHooks.item:AddItem("10001")
-	GlobalHooks.item:AddItem("10002")
-	GlobalHooks.item:AddItem("10003")
-	GlobalHooks.item:AddItem("20001", 3)
-	GlobalHooks.item:AddEquip("10101")
-	GlobalHooks.item:AddEquip("40201")
-	GlobalHooks.openUI:OpenUIPanel("UIPanelMain", 0)
+	GlobalHooks.uiUitls:Init()
 	GlobalHooks.openUI:OpenUIPanel("UIPanelMenu")
 end

@@ -6,34 +6,41 @@ local function OnClickAvatar()
 end
 
 local function OnClickQuit()
-	GlobalHooks.openUI:OpenUIPanel("UIPanelMenu")
 	self.ui:Close()
+	GlobalHooks.openUI:OpenUIPanel("UIPanelMenu")
+	CS.LuaCallCSUtils.UnloadGameScene()
 end
 
 local function OnClickBag()
 	GlobalHooks.openUI:OpenUIPanel("UIPanelBag", 2)
 end
 
-local function OnClickEquip()
-	GlobalHooks.openUI:OpenUIPanel("UIPanelEquip", 2)
+local function OnClickStory()
+	GlobalHooks.openUI:OpenUIPanel("UIPanelStory", 2)
+end
+
+local function OnClickBattle()
+	self.ui:Close()
+	GlobalHooks.openUI:OpenUIPanel("UIPanelBattle", 1, {enemyID = 20001})
 end
 
 local UIName = {
 	"img_avatar",
 	"btn_quit",
 	"btn_bag",
-	"btn_equip",
+	"btn_story",
 }
 
 local function FindUI()
 	for i = 1, #UIName do
 		self[UIName[i]] = self.ui:GetChild(UIName[i])
 	end
-	self["img_avatar"]:SetSprite("Avatar/Avatar_"..self.params.roleData["ID"])
+	local playerData = CS.LuaCallCSUtils.GetPlayerData()
+	self["img_avatar"]:SetSprite("Avatar/Avatar_"..playerData.m_ID)
 	self["img_avatar"]:AddListener(OnClickAvatar)
 	self["btn_quit"]:AddListener(OnClickQuit)
 	self["btn_bag"]:AddListener(OnClickBag)
-	self["btn_equip"]:AddListener(OnClickEquip)
+	self["btn_story"]:AddListener(OnClickStory)
 end
 
 function self:InitUI(name, sort, params)

@@ -56,7 +56,17 @@ function self:GetEquipBag(i)
 end
 
 function self:Init()
+	GlobalHooks.eventManager:AddListener("DataManager.AddItem", function(name, params)
+		self:AddItem(params.id, tonumber(params.count))
+	end)
+	GlobalHooks.eventManager:AddListener("DataManager.AddEquip", function(name, params)
+		self:AddEquip(params.id)
+	end)
+	GlobalHooks.eventManager:AddListener("Common.GetEquip", function(name, params)
+		self:GetNewEquip(params.id)
+	end)
 	ClearAllBag()
+	CS.LuaCallCSUtils.LoadData()
 end
 
 function self:AddEquip(id)
@@ -76,6 +86,13 @@ function self:AddEquip(id)
 	end
 end
 
+function self:GetNewEquip(id)
+	local data = GlobalHooks.dataReader:FindData("equip", id)
+	GlobalHooks.uiUitls:ShowFloatingMsg(GetText(data["NAME"]).." + 1")
+	self:AddEquip(id);
+	CS.LuaCallCSUtils.AddEquip(id, "1")
+end
+
 function self:AddItem(id, count)
 	local data = GlobalHooks.dataReader:FindData("item", id)
 	if data["ITEMTYPE"] == "1" then
@@ -87,6 +104,12 @@ function self:AddItem(id, count)
 			self.itemBag_2[data["ID"]] = count
 		end
 	end
+end
+
+function self:GetNewItem(id, count)
+	local data = GlobalHooks.dataReader:FindData("item", id)
+	GlobalHooks.uiUitls:ShowFloatingMsg(GetText(data["NAME"]).." + "..count)
+	self:AddItem(id, count);
 end
 
 function self:ConsumeItem(id, count)  --使用消耗品

@@ -6,6 +6,7 @@ local itemManager = require 'Manager.item'
 local UIName = {
 	"btn_back",
 	"img_icon",
+	"img_frame",
 	"txt_name",
 	"txt_pro",
 	"txt_des",
@@ -65,6 +66,7 @@ end
 local function InitItemInfo(index, data)
 	self["txt_name"]:SetText(GetText(data["NAME"]))
 	self["img_icon"]:SetSprite("Item/"..data["ICON"])
+	self["img_frame"]:SetSprite("Common/Frame_"..data["QUALITY"])
 	if index == 1 then
 		self["txt_des"]:SetText(GetText(data["DESC"]))
 		self["txt_pro"]:SetText("")
@@ -76,15 +78,14 @@ local function InitItemInfo(index, data)
 				itemManager:ConsumeItem(data["ID"], 1)
 				self.ui:Close()
 			end)
-			
 		end
 	elseif index == 2 then
 		local playerData = CS.LuaCallCSUtils.GetPlayerData()
 		if playerData.equip[tonumber(data["SLOT"]) - 1] == tonumber(data["ID"]) then
-			self["txt_op"]:SetText("Take off")
+			self["txt_op"]:SetText(GetText("TakeOff"))
 			self["btn_op"]:AddListener(function()
 				CS.LuaCallCSUtils.SetPlayerEquip(tonumber(data["SLOT"]) - 1, 0)
-				GlobalHooks.uiUitls:ShowFloatingMsg(GetText("Tip_EquipSuccess"))
+				GlobalHooks.uiUitls:ShowFloatingMsg(GetText("Tip_EquipTakeOff"))
 				self.ui:Close()
 			end) 
 		else

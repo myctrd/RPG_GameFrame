@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using XLua;
 using System;
-using System.Linq;
-using System.Text;
 
 public class LuaScriptManager : MonoBehaviour {
 
@@ -41,6 +38,12 @@ public class LuaScriptManager : MonoBehaviour {
     {
         fun = luaEnv.Global.Get<LuaFunction>("InitLanguage");
         fun.Call(language);
+    }
+
+    public void OpenUIPanel(string panel)
+    {
+        fun = luaEnv.Global.Get<LuaFunction>("OpenUIPanel");
+        fun.Call(panel);
     }
 
     private void OnDestroy()
@@ -117,6 +120,7 @@ public class EventManager
     private static Dictionary<string, HashSet<EvtCallback>> m_Subscribed = new Dictionary<string, HashSet<EvtCallback>>();
     private static int m_InCallLoops = 0;
     private static List<KeyValuePair<string, EvtCallback>> m_ItemsToRemove = new List<KeyValuePair<string, EvtCallback>>();
+
     [BlackList]
     public static void AddListener(string eventName, EvtCallback fun)
     {

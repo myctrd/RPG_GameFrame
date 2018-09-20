@@ -6,6 +6,14 @@ using UnityEngine.UI;
 
 public class UIMarker : UIBase
 {
+    public void RemoveListener()
+    {
+        if (transform.GetComponent<Button>() != null)
+        {
+            var button = transform.GetComponent<Button>();
+            button.onClick.RemoveAllListeners();
+        }
+    }
 
     public void AddListener(UnityAction call) {
         if(transform.GetComponent<Button>() != null)
@@ -21,6 +29,15 @@ public class UIMarker : UIBase
         {
             var text = transform.GetComponent<Text>();
             text.text = txt;
+        }
+    }
+
+    public void SetTextColor(int r, int b, int g)
+    {
+        if (transform.GetComponent<Text>() != null)
+        {
+            var text = transform.GetComponent<Text>();
+            text.color = new Color(r, g, b);
         }
     }
 
@@ -50,9 +67,9 @@ public class UIMarker : UIBase
     public void ClearChild()
     {
         int childCount = transform.childCount;
-        for (int i = 0; i < childCount; i++)
+        for (int i = childCount; i > 0; i--)
         {
-            Destroy(transform.GetChild(i).gameObject);
+            Destroy(transform.GetChild(i - 1).gameObject);
         }
 
     }

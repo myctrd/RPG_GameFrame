@@ -49,6 +49,7 @@ public class CSCallLua : MonoBehaviour {
     public delegate LuaTable LuaDBFind(string table, object key);
 
     private static LuaDBFind luaDBFind = null;
+    
 
     public Dictionary<string, object> GetDBData(string table, string key)
     {

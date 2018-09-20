@@ -2,8 +2,8 @@ local self = {}
 self.__index = self
 
 local function OnClickBack()
-	GlobalHooks.openUI:OpenUIPanel("UIPanelMenu")
 	self.ui:Close()
+	GlobalHooks.openUI:OpenUIPanel("UIPanelMenu")
 end
 
 local function OnClickLanguage()

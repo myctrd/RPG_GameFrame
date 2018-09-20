@@ -1,29 +1,28 @@
 local self = {}
 self.__index = self
 
-local function ShowItemInfo(item, id)
-	local img_icon = item:GetChild("img_icon")
-	local txt_count = item:GetChild("txt_count")
-	local data = GlobalHooks.dataReader:FindData("equip", id)
-	img_icon:SetSprite("Item/"..data["ICON"])
-	txt_count:SetText("")
-	
-	local frame = item:GetChild("frame")
-	frame:AddListener(function()
-        GlobalHooks.openUI:OpenUIPanel("UIPanelItemInfo", 2, {index = 2, itemData = data})
-    end)
+local function UpdateItem()
+	self["content_bag"]:ClearChild()
+	for i = 1, 6 do
+		self["check_"..tostring(i)]:SetActive(i == self.selectedIndex)
+	end
+	local equipBag = GlobalHooks.item:GetEquipBag(self.selectedIndex)
+	for k, v in pairs(equipBag)do
+		GlobalHooks.openUI:InitUIComponent("UIComponentItem", self["content_bag"]:GetTransfrom(), 0, {itemType = 2, id = v})
+	end
 end
 
 local function OnSelectCol(col)
-	self["content_bag"]:ClearChild()
-	for i = 1, 6 do
-		self["check_"..tostring(i)]:SetActive(i == col)
-	end
-	local equipBag = GlobalHooks.item:GetEquipBag(col)
-	for k, v in pairs(equipBag)do
-		local item = CS.UIManager.m_instance:LoadComponent("UIComponentItem", self["content_bag"]:GetTransfrom())
-		ShowItemInfo(item, v)
-	end
+	self.selectedIndex = col
+	UpdateItem()
+end
+
+local function OnExit()
+	GlobalHooks.eventManager:RemoveListener("Role.UpdateRoleInfo", UpdateItem)
+end
+
+local function OnEnter()
+    GlobalHooks.eventManager:AddListener("Role.UpdateRoleInfo", UpdateItem)
 end
 
 local UIName = {
@@ -54,14 +53,17 @@ local function FindUI()
 		end)
 	end
 	self["btn_back"]:AddListener(function()
+		OnExit()
         self.ui:Close()
+		GlobalHooks.openUI:OpenUIPanel("UIPanelRoleInfo", 2)
     end)
-	OnSelectCol(1)
+	OnSelectCol(self.params.slot)
 end
 
 function self:InitUI(name, sort, params)
 	self.params = params
 	self.ui = CS.UIManager.m_instance:ShowOrCreatePanel(name, sort)
+	OnEnter()
 	FindUI()
 end
 

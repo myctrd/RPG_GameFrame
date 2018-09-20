@@ -21,8 +21,8 @@ GameObject:
   - component: {fileID: 224562067477760808}
   - component: {fileID: 222209363644417892}
   - component: {fileID: 114376461337026180}
-  - component: {fileID: 95833963307820804}
   - component: {fileID: 114689803394897532}
+  - component: {fileID: 95284024781640012}
   m_Layer: 5
   m_Name: UIComponentFloatingMsg
   m_TagString: Untagged
@@ -65,7 +65,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!95 &95833963307820804
+--- !u!95 &95284024781640012
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 1
@@ -74,7 +74,7 @@ Animator:
   m_GameObject: {fileID: 1310451537743676}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 84c173120196e9e4bb758c6d652ff10d, type: 2}
+  m_Controller: {fileID: 9100000, guid: 643476675a5b05e4d8ba5d27b336fb6f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

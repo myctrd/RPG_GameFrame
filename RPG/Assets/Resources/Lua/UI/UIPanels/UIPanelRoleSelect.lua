@@ -2,8 +2,8 @@ local self = {}
 self.__index = self
 
 local function OnClickBack()
-	GlobalHooks.openUI:OpenUIPanel("UIPanelMenu")
 	self.ui:Close()
+	GlobalHooks.openUI:OpenUIPanel("UIPanelMenu")
 end
 
 local UIName = {
@@ -38,6 +38,7 @@ local function OnClickRole(data)
 	CS.LuaCallCSUtils.SetRolePlayer(tonumber(data["ID"]))
 	GlobalHooks.openUI:OpenUIPanel("UIPanelGameDeck", 1, {roleData = data})
 	self.ui:Close()
+	CS.LuaCallCSUtils.LoadGameScene()
 end
 
 function self:InitProUI(i, data, isAvailable)

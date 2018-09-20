@@ -15,6 +15,69 @@ public class RolePlayer : RoleBase
         UpdatePlayerAttr();
     }
 
+    public void ActivateEvent(string eventID)  //触发事件
+    {
+        Dictionary<string, object> data = CSCallLua.m_instance.GetDBData("event", eventID);
+        string[] eventTypes = ((string)data["TYPE"]).Split(new char[1] { ';' });
+        string[] events = ((string)data["EVENTS"]).Split(new char[1] { ';' });
+        
+        if(eventTypes.Length > 0)
+        {
+            for(int i = 0; i < eventTypes.Length; i ++)
+            {
+                ExcuteEvent(int.Parse(eventTypes[i]), events[i], data);
+            }
+        }
+        
+    }
+
+    void ExcuteEvent(int m_eventType, string m_event, Dictionary<string, object> data)  //执行事件
+    {
+        Dictionary<string, object> p = new Dictionary<string, object>();
+        string[] info;
+        switch (m_eventType)
+        {
+            case 0:  //弹出对话
+                info = m_event.Split(new char[1] { ',' });
+                if (info[0] == "npc")
+                {
+                    p.Clear();
+                    p.Add("name", info[1]);
+                    p.Add("txt", info[2]);
+                    EventManager.Broadcast("Dialog.CommonDialog", p);
+                }
+                break;
+            case 1:  //直接给奖励
+                info = m_event.Split(new char[1] { ',' });
+                if (info[0] == "equip")
+                {
+                    p.Clear();
+                    p.Add("id", info[1]);
+                    EventManager.Broadcast("Common.GetEquip", p);
+                }
+                break;
+            case 2:  //地图传送
+                info = m_event.Split(new char[1] { ',' });
+                int mapID = int.Parse(info[0]);
+                PlayerPrefs.SetInt(GameManager.m_instance.GetPlayerData().m_Name + "_CurrentMap", mapID);
+                PlayerPrefs.SetInt(GameManager.m_instance.GetPlayerData().m_Name + "_CurrentLine", int.Parse(info[1]));
+                PlayerPrefs.SetInt(GameManager.m_instance.GetPlayerData().m_Name + "_CurrentCol", int.Parse(info[2]));
+                GameManager.m_instance.LoadMap(mapID);
+                break;
+            case 3:  //解锁故事
+                if (PlayerPrefs.HasKey(m_event) == false)
+                {
+                    PlayerPrefs.SetInt(m_event, 1);
+                    p.Clear();
+                    p.Add("txt", "StoryUpdated");
+                    EventManager.Broadcast("Common.FloatingMsg", p);
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
     void UpdatePlayerAttr()
     {
         Dictionary<string, object> data = CSCallLua.m_instance.GetDBData("role", roleIndex.ToString());
@@ -108,5 +171,6 @@ public class RolePlayer : RoleBase
         equip[slot] = id;
         PlayerPrefs.SetInt(m_Name + "Equip_" + (slot + 1).ToString(), id);
         UpdatePlayerAttr();
+        EventManager.Broadcast("Role.UpdateRoleInfo");
     }
 }

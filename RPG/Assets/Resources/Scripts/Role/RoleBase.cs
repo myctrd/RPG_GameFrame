@@ -19,6 +19,21 @@ public class RoleBase : MonoBehaviour {
     public float cr { get; set; }
     public float cv { get; set; }
 
+    public virtual void RoleBeAttacked(float damage, float cv, float cr)
+    {
+        if (Random.Range(0.0f, 1.0f) < cv)
+        {
+            damage = damage * cr;
+            Dictionary <string, object> p = new Dictionary<string, object>();
+            p.Add("txt", "Critical!");
+            EventManager.Broadcast("Battle.BattleTips", p);
+        }
+        float cutDamage = (1 - (amr * 0.06f) / (1 + amr * 0.06f)) * damage;
+        int realDamage = Random.Range(0.0f, 1.0f) < cutDamage - (int)cutDamage ? (int)cutDamage + 1 : (int)cutDamage;
+        //Debug.LogError(realDamage);
+        hp = hp - realDamage < 0 ? 0 : hp - realDamage;
+    }
+
 }
 
 public enum RoleType

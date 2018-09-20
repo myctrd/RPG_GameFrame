@@ -462,7 +462,7 @@ namespace XLua
             {
                 if (kv.Value.IsAlive)
                 {
-                    return false;
+                    //return false;
                 }
             }
             return true;

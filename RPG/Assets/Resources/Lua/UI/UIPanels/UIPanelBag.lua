@@ -1,19 +1,6 @@
 local self = {}
 self.__index = self
 
-local function ShowItemInfo(item, id, count)
-	local img_icon = item:GetChild("img_icon")
-	local txt_count = item:GetChild("txt_count")
-	local data = GlobalHooks.dataReader:FindData("item", id)
-	img_icon:SetSprite("Item/"..data["ICON"])
-	txt_count:SetText(tostring(count))
-	
-	local frame = item:GetChild("frame")
-	frame:AddListener(function()
-        GlobalHooks.openUI:OpenUIPanel("UIPanelItemInfo", 2, {index = 1, itemData = data})
-    end)
-end
-
 local function UpdateItem()
 	self["content_bag"]:ClearChild()
 	for i = 1, 2 do
@@ -22,8 +9,7 @@ local function UpdateItem()
 	local itemBag = GlobalHooks.item:GetItemBag(self.selectedIndex)
 	for k, v in pairs(itemBag)do
 		if v > 0 then
-			local item = CS.UIManager.m_instance:LoadComponent("UIComponentItem", self["content_bag"]:GetTransfrom())
-			ShowItemInfo(item, k, v)
+			GlobalHooks.openUI:InitUIComponent("UIComponentItem", self["content_bag"]:GetTransfrom(), 0, {itemType = 1, id = k, amount = v})
 		end
 	end
 end
@@ -70,9 +56,7 @@ end
 function self:InitUI(name, sort, params)
 	self.params = params
 	self.ui = CS.UIManager.m_instance:ShowOrCreatePanel(name, sort)
-	
 	OnEnter()
-	
 	FindUI()
 end
 

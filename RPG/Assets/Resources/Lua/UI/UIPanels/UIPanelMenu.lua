@@ -2,13 +2,13 @@ local self = {}
 self.__index = self
 
 local function OnClickPlay()
-	GlobalHooks.openUI:OpenUIPanel("UIPanelRoleSelect")
 	self.ui:Close()
+	GlobalHooks.openUI:OpenUIPanel("UIPanelRoleSelect")
 end
 
 local function OnClickSettings()
-	GlobalHooks.openUI:OpenUIPanel("UIPanelSettings")
 	self.ui:Close()
+	GlobalHooks.openUI:OpenUIPanel("UIPanelSettings")
 end
 
 local UIName = {

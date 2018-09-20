@@ -129,8 +129,9 @@ GameObject:
   - component: {fileID: 224894425655792464}
   - component: {fileID: 222667534404046656}
   - component: {fileID: 114299808709754584}
+  - component: {fileID: 114474277742362682}
   m_Layer: 5
-  m_Name: img
+  m_Name: img_frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -306,6 +307,17 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Sword
+--- !u!114 &114474277742362682
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1681479050248880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f3666e9dc4d85f4c9e603390f4c27f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114583768938513032
 MonoBehaviour:
   m_ObjectHideFlags: 1

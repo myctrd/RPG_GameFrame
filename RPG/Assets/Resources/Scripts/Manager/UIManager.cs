@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using System.IO;
-using System;
 public class UIManager : MonoBehaviour {
 
 	public static UIManager m_instance;
@@ -130,7 +127,7 @@ public class UIManager : MonoBehaviour {
         return false;
     }
 	
-    public bool ClosePanel(string name)
+    public bool HidePanel(string name)
     {
         UIPanelBase panel = null;
         if (_acvtive_panels.TryGetValue(name, out panel) && panel != null)
