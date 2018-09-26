@@ -30,6 +30,7 @@ public class DC_RolePlayer : UIRoleBase
 
     public override void StopMove()
     {
+        transform.localPosition = new Vector3(transform.localPosition.x, pos_y, 0);
         m_state = RoleState.None;
         m_dir = Direction.None;
         animator.Play("idle");

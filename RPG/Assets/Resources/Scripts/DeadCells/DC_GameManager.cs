@@ -29,9 +29,9 @@ public class DC_GameManager : MonoBehaviour {
         LoadMap();
     }
 
-    public float speedy = 0;
-    public float speedx = 0;
-    private float g = 1000;
+    private float speedy = 0;
+    private float speedx = 0;
+    private float g = 1500;
 
     void Update()
     {
@@ -73,7 +73,7 @@ public class DC_GameManager : MonoBehaviour {
                 {
                     if (rolePlayer.CanWalk(Direction.Down) == false)
                     {
-                        rolePlayer.SetRoleState(RoleState.Walking);
+                        rolePlayer.SetRoleState(RoleState.None);
                         speedx = 0;
                         speedy = 0;
                         rolePlayer.StopMove();
@@ -91,6 +91,15 @@ public class DC_GameManager : MonoBehaviour {
                 }
             }
 
+            if (Input.GetKey(KeyCode.A))  //左走
+            {
+                speedx = rolePlayer.CanWalk(Direction.Left) ? -300 : 0;
+            }
+            if (Input.GetKey(KeyCode.D))  //右走
+            {
+                speedx = rolePlayer.CanWalk(Direction.Right) ? 300 : 0;
+            }
+
             if (rolePlayer.GetRoleState() == RoleState.Walking || rolePlayer.GetRoleState() == RoleState.None)  //走路时或idle时
             {
                 if (rolePlayer.CanWalk(Direction.Down))
@@ -100,15 +109,6 @@ public class DC_GameManager : MonoBehaviour {
                     speedy = 0;
                     return;
                 }
-                if (Input.GetKey(KeyCode.A))  //左走
-                {
-                    speedx = rolePlayer.CanWalk(Direction.Left) ? -300 : 0;
-                }
-                if (Input.GetKey(KeyCode.D))  //右走
-                {
-                    speedx = rolePlayer.CanWalk(Direction.Right) ? 300 : 0;
-                }
-
                 if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))  //停止
                 {
                     speedx = 0;
@@ -116,7 +116,7 @@ public class DC_GameManager : MonoBehaviour {
                 }
                 if (Input.GetKeyDown(KeyCode.Space))  //跳跃
                 {
-                    speedy = 600;
+                    speedy = 750;
                     rolePlayer.SetRoleState(RoleState.Jumping);
                 }
             }
