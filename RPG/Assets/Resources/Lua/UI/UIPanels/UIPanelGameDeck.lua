@@ -1,11 +1,31 @@
 local self = {}
 self.__index = self
 
+local function UpdateGold()
+	if self.gold ~= nil then
+		local value = CS.LuaCallCSUtils.GetPlayerGold() - self.gold
+		if value > 0 then
+			GlobalHooks.uiUitls:ShowFloatingMsg(GetText("Gold").." +"..value)
+		end
+	end
+	self.gold = CS.LuaCallCSUtils.GetPlayerGold()
+	self["txt_gold"]:SetText(self.gold)
+end
+
+local function OnExit()
+	GlobalHooks.eventManager:RemoveListener("Common.UpdateGold", UpdateGold)
+end
+
+local function OnEnter()
+    GlobalHooks.eventManager:AddListener("Common.UpdateGold", UpdateGold)
+end
+
 local function OnClickAvatar()
 	GlobalHooks.openUI:OpenUIPanel("UIPanelRoleInfo", 2)
 end
 
 local function OnClickQuit()
+	OnExit()
 	self.ui:Close()
 	GlobalHooks.openUI:OpenUIPanel("UIPanelMenu")
 	CS.LuaCallCSUtils.UnloadGameScene()
@@ -19,6 +39,10 @@ local function OnClickStory()
 	GlobalHooks.openUI:OpenUIPanel("UIPanelStory", 2)
 end
 
+local function OnClickNotes()
+	GlobalHooks.openUI:OpenUIPanel("UIPanelNotes", 2)
+end
+
 local function OnClickBattle()
 	self.ui:Close()
 	GlobalHooks.openUI:OpenUIPanel("UIPanelBattle", 1, {enemyID = 20001})
@@ -29,6 +53,8 @@ local UIName = {
 	"btn_quit",
 	"btn_bag",
 	"btn_story",
+	"btn_notes",
+	"txt_gold",
 }
 
 local function FindUI()
@@ -41,11 +67,14 @@ local function FindUI()
 	self["btn_quit"]:AddListener(OnClickQuit)
 	self["btn_bag"]:AddListener(OnClickBag)
 	self["btn_story"]:AddListener(OnClickStory)
+	self["btn_notes"]:AddListener(OnClickNotes)
+	UpdateGold()
 end
 
 function self:InitUI(name, sort, params)
 	self.params = params
 	self.ui = CS.UIManager.m_instance:ShowOrCreatePanel(name, sort)
+	OnEnter()
 	FindUI()
 end
 

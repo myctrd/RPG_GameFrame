@@ -1,35 +1,48 @@
 local self = {}
 self.__index = self
 
-local menu = require 'UI.UIPanels.UIPanelMenu'
-local settings = require 'UI.UIPanels.UIPanelSettings'
-local roleSelect = require 'UI.UIPanels.UIPanelRoleSelect'
-local gameDeck = require 'UI.UIPanels.UIPanelGameDeck'
-local roleInfo = require 'UI.UIPanels.UIPanelRoleInfo'
-local bag = require 'UI.UIPanels.UIPanelBag'
-local equip = require 'UI.UIPanels.UIPanelEquip'
-local itemInfo = require 'UI.UIPanels.UIPanelItemInfo'
-local battle = require 'UI.UIPanels.UIPanelBattle'
-local dialog = require 'UI.UIPanels.UIPanelDialog'
-local story = require 'UI.UIPanels.UIPanelStory'
+self.menu = require 'UI.UIPanels.UIPanelMenu'
+self.settings = require 'UI.UIPanels.UIPanelSettings'
+self.roleSelect = require 'UI.UIPanels.UIPanelRoleSelect'
+self.gameDeck = require 'UI.UIPanels.UIPanelGameDeck'
+self.roleInfo = require 'UI.UIPanels.UIPanelRoleInfo'
+self.bag = require 'UI.UIPanels.UIPanelBag'
+self.equip = require 'UI.UIPanels.UIPanelEquip'
+self.battle = require 'UI.UIPanels.UIPanelBattle'
+self.dialog = require 'UI.UIPanels.UIPanelDialog'
+self.story = require 'UI.UIPanels.UIPanelStory'
+self.shop = require 'UI.UIPanels.UIPanelShop'
+self.notes = require 'UI.UIPanels.UIPanelNotes'
 
-local floatingMsg = require 'UI.UIComponents.UIComponentFloatingMsg'
-local item = require 'UI.UIComponents.UIComponentItem'
-local dmgValue = require 'UI.UIComponents.UIComponentDamageValue'
-local battleTips = require 'UI.UIComponents.UIComponentBattleTips'
+self.itemInfo = require 'UI.UIComponents.UIComponentItemInfo'
+self.floatingMsg = require 'UI.UIComponents.UIComponentFloatingMsg'
+self.item = require 'UI.UIComponents.UIComponentItem'
+self.dmgValue = require 'UI.UIComponents.UIComponentDamageValue'
+self.battleTips = require 'UI.UIComponents.UIComponentBattleTips'
+self.option = require 'UI.UIComponents.UIComponentOption'
+self.shopItem = require 'UI.UIComponents.UIComponentShopItem'
+self.notesCom = require 'UI.UIComponents.UIComponentNotes'
 
 function self:InitUIComponent(name, obj, sort, params)
 	if name == nil then
 		return
 	end
 	if name == "UIComponentFloatingMsg" then
-		floatingMsg:InitUI(name, obj, sort, params)
+		self.floatingMsg:InitUI(name, obj, sort, params)
 	elseif name == "UIComponentItem" then
-		item:InitUI(name, obj, sort, params)
+		self.item:InitUI(name, obj, sort, params)
+	elseif name == "UIComponentShopItem" then
+		self.shopItem:InitUI(name, obj, sort, params)
 	elseif name == "UIComponentDamageValue" then
-		dmgValue:InitUI(name, obj, sort, params)
+		self.dmgValue:InitUI(name, obj, sort, params)
 	elseif name == "UIComponentBattleTips" then
-		battleTips:InitUI(name, obj, sort, params)
+		self.battleTips:InitUI(name, obj, sort, params)
+	elseif name == "UIComponentOption" then
+		self.option:InitUI(name, obj, sort, params)
+	elseif name == "UIComponentItemInfo" then
+		self.itemInfo:InitUI(name, obj, sort, params)
+	elseif name == "UIComponentNotes" then
+		self.notesCom:InitUI(name, obj, sort, params)
 	end
 end
 
@@ -42,27 +55,29 @@ function self:OpenUIPanel(name, sort, params)
 	end
 	CS.LuaCallCSUtils.SetInteraction(false)
 	if name == "UIPanelMenu" then
-		menu:InitUI(name, sort, params)
+		self.menu:InitUI(name, sort, params)
 	elseif name == "UIPanelSettings" then
-		settings:InitUI(name, sort, params)
+		self.settings:InitUI(name, sort, params)
 	elseif name == "UIPanelRoleSelect" then
-		roleSelect:InitUI(name, sort, params)
+		self.roleSelect:InitUI(name, sort, params)
 	elseif name == "UIPanelGameDeck" then
-		gameDeck:InitUI(name, sort, params)
+		self.gameDeck:InitUI(name, sort, params)
 	elseif name == "UIPanelRoleInfo" then
-		roleInfo:InitUI(name, sort, params)
+		self.roleInfo:InitUI(name, sort, params)
 	elseif name == "UIPanelBag" then
-		bag:InitUI(name, sort, params)
+		self.bag:InitUI(name, sort, params)
 	elseif name == "UIPanelEquip" then
-		equip:InitUI(name, sort, params)
-	elseif name == "UIPanelItemInfo" then
-		itemInfo:InitUI(name, sort, params)
+		self.equip:InitUI(name, sort, params)
 	elseif name == "UIPanelBattle" then
-		battle:InitUI(name, sort, params)
+		self.battle:InitUI(name, sort, params)
 	elseif name == "UIPanelDialog" then
-		dialog:InitUI(name, sort, params)
+		self.dialog:InitUI(name, sort, params)
 	elseif name == "UIPanelStory" then
-		story:InitUI(name, sort, params)
+		self.story:InitUI(name, sort, params)
+	elseif name == "UIPanelNotes" then
+		self.notes:InitUI(name, sort, params)
+	elseif name == "UIPanelShop" then
+		self.shop:InitUI(name, sort, params)
 	end
 end
 

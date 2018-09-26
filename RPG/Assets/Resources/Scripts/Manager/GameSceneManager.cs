@@ -30,6 +30,11 @@ public class GameSceneManager : MonoBehaviour {
     private UIRolePlayer rolePlayer;
     private Transform t_rolePlayer;
 
+    public int GetInteractiveNPC()
+    {
+        return rolePlayer.GetInteractiveNPC();
+    }
+
     public MapTile GetTile(int line, int col)
     {
         Transform t = tileRoot.Find(line + "_" + col);
@@ -78,8 +83,21 @@ public class GameSceneManager : MonoBehaviour {
                     {
                         if (GameManager.m_instance.CheckEventState((string)data_interactiveNPC["EVENT"]) == 0 || (string)data_interactiveNPC["CANREUSE"] == "1")  //NPC事件未触发过或事件可重复触发
                         {
+                            if((string)data_interactiveNPC["PREEVENT"] != "0" && PlayerPrefs.HasKey(GameManager.m_instance.GetPlayerData().m_Name + "_Event_" + (string)data_interactiveNPC["PREEVENT"]) == false)  //前置事件未触发
+                            {
+                                if ((string)data_interactiveNPC["DIALOG"] != "")
+                                {
+                                    NPC_params.Clear();
+                                    NPC_params.Add("npcID", interactiveNPC);
+                                    EventManager.Broadcast("Dialog.NPCDialog", NPC_params);
+                                }
+                                return;
+                            }
                             GameManager.m_instance.GetPlayerData().ActivateEvent((string)data_interactiveNPC["EVENT"]);
-                            PlayerPrefs.SetInt(GameManager.m_instance.GetPlayerData().m_Name + "_Event_" + (string)data_interactiveNPC["EVENT"], 1);
+                            if ((string)data_interactiveNPC["MARKNOW"] == "1")  //立刻标记触发过的事件（有的事件可以回头继续触发）
+                            {
+                                PlayerPrefs.SetInt(GameManager.m_instance.GetPlayerData().m_Name + "_Event_" + (string)data_interactiveNPC["EVENT"], 1);
+                            }
                         }
                         else  //NPC事件已触发过且不可重复触发弹出固定的对话
                         {

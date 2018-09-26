@@ -9,7 +9,7 @@ public class UIRoleBase : MonoBehaviour {
 
     protected Animator animator;
     protected Image img;
-    protected int line, col;
+    public int line, col;
     protected float pos_x, pos_y;
     public virtual void SetUIRole(int id, int line, int col, float pos_x, float pos_y)
     {
@@ -33,7 +33,7 @@ public class UIRoleBase : MonoBehaviour {
         return false;
     }
 
-    public void WalkOneTile(int line, int col)
+    public virtual void WalkOneTile(int line, int col)
     {
         this.line += line;
         this.col += col;
@@ -55,4 +55,5 @@ public enum RoleState
 {
     None = 0,
     Walking = 1,
+    Jumping = 2,
 }

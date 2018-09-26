@@ -51,6 +51,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Resources\Scripts\DeadCells\DC_GameManager.cs" />
+     <Compile Include="Assets\Resources\Scripts\DeadCells\DC_RolePlayer.cs" />
      <Compile Include="Assets\Resources\Scripts\Localization\LocalizationManager.cs" />
      <Compile Include="Assets\Resources\Scripts\Localization\LocalizationText.cs" />
      <Compile Include="Assets\Resources\Scripts\Manager\BattleManager.cs" />

@@ -56,6 +56,9 @@ function self:GetEquipBag(i)
 end
 
 function self:Init()
+	GlobalHooks.eventManager:AddListener("DataManager.ConsumeTaskItem", function(name, params)
+		self:ConsumeTaskItem(params.id)
+	end)
 	GlobalHooks.eventManager:AddListener("DataManager.AddItem", function(name, params)
 		self:AddItem(params.id, tonumber(params.count))
 	end)
@@ -65,8 +68,11 @@ function self:Init()
 	GlobalHooks.eventManager:AddListener("Common.GetEquip", function(name, params)
 		self:GetNewEquip(params.id)
 	end)
+	GlobalHooks.eventManager:AddListener("Common.GetItem", function(name, params)
+		self:GetNewItem(params.id, params.count)
+	end)
 	ClearAllBag()
-	CS.LuaCallCSUtils.LoadData()
+	CS.LuaCallCSUtils.LoadItemData()
 end
 
 function self:AddEquip(id)
@@ -97,12 +103,14 @@ function self:AddItem(id, count)
 	local data = GlobalHooks.dataReader:FindData("item", id)
 	if data["ITEMTYPE"] == "1" then
 		self.itemBag_1[data["ID"]] = 1
+		CS.LuaCallCSUtils.UpdateItem(id, "1")
 	elseif data["ITEMTYPE"] == "2" then
 		if(IsTableHasKey(self.itemBag_2, data["ID"]))then
 			self.itemBag_2[data["ID"]] = self.itemBag_2[data["ID"]] + count
 		else
 			self.itemBag_2[data["ID"]] = count
 		end
+		CS.LuaCallCSUtils.UpdateItem(id, tostring(self.itemBag_2[data["ID"]]))
 	end
 end
 
@@ -112,16 +120,20 @@ function self:GetNewItem(id, count)
 	self:AddItem(id, count);
 end
 
+function self:ConsumeTaskItem(id)
+	if(self.itemBag_1[id])then
+		self.itemBag_1[id] = 0
+		CS.LuaCallCSUtils.UpdateItem(id, "0")
+	end
+end
+
 function self:ConsumeItem(id, count)  --使用消耗品
 	if(self.itemBag_2[id] and self.itemBag_2[id] >= count)then
 		local data = GlobalHooks.dataReader:FindData("item", id)
 		self.itemBag_2[id] = self.itemBag_2[id] - count
 		GlobalHooks.uiUitls:ShowFloatingMsg(GetText(data["NAME"]) .." - "..count)
-		if GlobalHooks.eventManager == nil then
-			print("eventManager == nil")
-		else
-		end
 		GlobalHooks.eventManager:Broadcast("Item.UpdateItemCount", {})
+		CS.LuaCallCSUtils.UpdateItem(id, self.itemBag_2[id])
 	else
 		GlobalHooks.uiUitls:ShowFloatingMsg(GetText("Tip_NotEnoughItems"))
 	end

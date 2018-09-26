@@ -19,6 +19,7 @@ local function OnSelectCol(col)
 	UpdateItem()
 end
 
+
 local function OnExit()
 	GlobalHooks.eventManager:RemoveListener("Item.UpdateItemCount", UpdateItem)
 end

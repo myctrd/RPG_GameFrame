@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -77,5 +75,15 @@ public class UIMarker : UIBase
     public Transform GetTransfrom()
     {
         return transform;
+    }
+
+    public void SetGameObjectName(string name)
+    {
+        gameObject.name = name;
+    }
+
+    public string GetGameObjectName()
+    {
+        return gameObject.name;
     }
 }

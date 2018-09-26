@@ -67,6 +67,16 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+    public void AddGold(int value)
+    {
+        m_Player.AddGold(value);
+    }
+
+    public int GetPlayerGold()
+    {
+        return m_Player.GetGold();
+    }
+
     public RolePlayer GetPlayerData()
     {
         return m_Player;

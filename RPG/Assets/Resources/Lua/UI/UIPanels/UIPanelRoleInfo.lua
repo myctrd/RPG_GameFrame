@@ -12,7 +12,7 @@ local function ShowEquipInfo(slot, obj, id)
 		img_icon:SetSprite("Item/"..data["ICON"])
 		obj:SetSprite("Common/Frame_"..data["QUALITY"])
 		obj:AddListener(function()
-			GlobalHooks.openUI:OpenUIPanel("UIPanelItemInfo", 2, {index = 2, itemData = data})
+			GlobalHooks.openUI:InitUIComponent("UIComponentItemInfo", nil, 2, {index = 2, itemData = data})
 		end)
 	else
 		obj:SetSprite("Common/Frame_1")

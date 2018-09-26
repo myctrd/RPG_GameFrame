@@ -21,16 +21,24 @@ function self:Init()
 		self:ShowFloatingMsg(GetText(params.txt))
 	end)
 	
-	GlobalHooks.eventManager:AddListener("Dialog.CommonDialog", function(name, params)
+	GlobalHooks.eventManager:AddListener("Dialog.CommonDialog", function(name, params) 
 		GlobalHooks.openUI:OpenUIPanel("UIPanelDialog", 2, {d_type = 1, name = params.name ,txt = params.txt})
 	end)
 	
 	GlobalHooks.eventManager:AddListener("Dialog.NPCDialog", function(name, params)
 		GlobalHooks.openUI:OpenUIPanel("UIPanelDialog", 2, {d_type = 2, npcID = params.npcID})
 	end)
+	
+	GlobalHooks.eventManager:AddListener("Dialog.OptionsDialog", function(name, params)
+		GlobalHooks.openUI:OpenUIPanel("UIPanelDialog", 2, {d_type = 3, name = params.name ,txt = params.txt, options = params.options, events = params.events})
+	end)
 
 	GlobalHooks.eventManager:AddListener("Battle.BattleTips", function(name, params)
 		GlobalHooks.openUI:InitUIComponent("UIComponentBattleTips", nil, 4, {txt = params.txt})
+	end)
+	
+	GlobalHooks.eventManager:AddListener("UI.UpdateShopItem", function(name, params)
+		GlobalHooks.openUI.shop:UpdateShopItem(params.data)
 	end)
 end
 

@@ -25,7 +25,7 @@ local function UpdateItemInfo()
 		if self["frame"] then
 			self["frame"]:SetSprite("Common/Frame_"..data["QUALITY"])
 			self["frame"]:AddListener(function()
-				GlobalHooks.openUI:OpenUIPanel("UIPanelItemInfo", 2, {index = 1, itemData = data})
+				GlobalHooks.openUI:InitUIComponent("UIComponentItemInfo", nil, 2, {index = 1, itemData = data})
 			end)
 		end
 	else
@@ -45,7 +45,7 @@ local function UpdateItemInfo()
 		if self["frame"] then
 			self["frame"]:SetSprite("Common/Frame_"..data["QUALITY"])
 			self["frame"]:AddListener(function()
-				GlobalHooks.openUI:OpenUIPanel("UIPanelItemInfo", 2, {index = 2, itemData = data})
+				GlobalHooks.openUI:InitUIComponent("UIComponentItemInfo", nil, 2, {index = 2, itemData = data})
 			end)
 		end
 	end

@@ -4,6 +4,7 @@ GlobalHooks = {
 	openUI = require 'Logic.OpenUI',
 	uiUitls = require 'Logic.UIUtils',
 	item = require 'Manager.item',
+	event = require 'Manager.event',
 	eventManager = require 'Logic.EventManager',
 	roleName = {
 	"Rejec",
@@ -22,6 +23,7 @@ end
 
 function InitUI()
 	GlobalHooks.item:Init()
+	GlobalHooks.event:Init()
 	GlobalHooks.uiUitls:Init()
 	GlobalHooks.openUI:OpenUIPanel("UIPanelMenu")
 end

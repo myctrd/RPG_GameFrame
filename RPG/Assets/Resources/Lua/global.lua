@@ -7,6 +7,10 @@ end
 function GetText(id)
 	if m_language then
 		local data = GlobalHooks.dataReader:FindData("localization", id)
-		return data[m_language]
+		if data then
+			return data[m_language]
+		end
+		return "";
 	end
 end
+

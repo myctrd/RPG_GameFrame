@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Xml;
@@ -20,9 +19,7 @@ public class DataManager : MonoBehaviour {
 
     XmlDocument xml_itemData;
     XmlDocument xml_equipData;
-
-    Dictionary<string, string> m_itemDic = new Dictionary<string, string>();
-    Dictionary<string, string> m_equipDic = new Dictionary<string, string>();
+    XmlDocument xml_notesData;
 
     public void LoadItemData()
     {
@@ -37,15 +34,16 @@ public class DataManager : MonoBehaviour {
             UpdateNodeToXML("ItemData");
             SaveXML(xml_itemData, "ItemData");
         }
-        m_itemDic.Clear();
         XmlNode root = xml_itemData.SelectSingleNode("Root");
         foreach (XmlElement node in root)
         {
-            m_itemDic[node.ChildNodes[0].InnerText] = node.ChildNodes[1].InnerText;
-            Dictionary<string, object> p = new Dictionary<string, object>();
-            p.Add("id", node.ChildNodes[0].InnerText);
-            p.Add("count", node.ChildNodes[1].InnerText);
-            EventManager.Broadcast("DataManager.AddItem", p);
+            if(int.Parse(node.ChildNodes[1].InnerText) > 0)
+            {
+                Dictionary<string, object> p = new Dictionary<string, object>();
+                p.Add("id", node.ChildNodes[0].InnerText);
+                p.Add("count", node.ChildNodes[1].InnerText);
+                EventManager.Broadcast("DataManager.AddItem", p);
+            }
         }
     }
 
@@ -62,14 +60,35 @@ public class DataManager : MonoBehaviour {
             UpdateNodeToXML("EquipData");
             SaveXML(xml_equipData, "EquipData");
         }
-        m_equipDic.Clear();
         XmlNode root = xml_equipData.SelectSingleNode("Root");
         foreach (XmlElement node in root)
         {
-            m_equipDic[node.ChildNodes[0].InnerText] = node.ChildNodes[1].InnerText;
             Dictionary<string, object> p = new Dictionary<string, object>();
             p.Add("id", node.ChildNodes[0].InnerText);
             EventManager.Broadcast("DataManager.AddEquip", p);
+        }
+    }
+
+    public void LoadNotesData()
+    {
+        if (File.Exists(Application.dataPath + dataPath + "NotesData.XML"))
+        {
+            xml_notesData = new XmlDocument();
+            xml_notesData.Load(Application.dataPath + dataPath + "NotesData.XML");
+        }
+        else
+        {
+            xml_notesData = CreateXML();
+            UpdateNodeToXML("NotesData");
+            SaveXML(xml_notesData, "NotesData");
+        }
+        XmlNode root = xml_notesData.SelectSingleNode("Root");
+        foreach (XmlElement node in root)
+        {
+            Dictionary<string, object> p = new Dictionary<string, object>();
+            p.Add("id", node.ChildNodes[0].InnerText);
+            p.Add("type", node.ChildNodes[1].InnerText);
+            EventManager.Broadcast("DataManager.AddNotes", p);
         }
     }
 
@@ -77,6 +96,22 @@ public class DataManager : MonoBehaviour {
     {
         AddNodeToXML(xml_equipData, "ID", id, "COUNT", count);
         SaveXML(xml_equipData, "EquipData");
+    }
+
+    public void UpdateItem(string id, string count)
+    {
+        AddNodeToXML(xml_itemData, "ID", id, "COUNT", count);
+        SaveXML(xml_itemData, "ItemData");
+    }
+
+    public void AddNotes(string id, string type)
+    {
+        AddNodeToXML(xml_notesData, "ID", id, "TYPE", type);
+        SaveXML(xml_notesData, "NotesData");
+        Dictionary<string, object> p = new Dictionary<string, object>();
+        p.Add("id", id);
+        p.Add("type", type);
+        EventManager.Broadcast("DataManager.AddNotes", p);
     }
 
     public XmlDocument CreateXML()
@@ -90,6 +125,16 @@ public class DataManager : MonoBehaviour {
     void AddNodeToXML(XmlDocument xml, string title_1, string value_1, string title_2, string value_2)
     {
         XmlNode root = xml.SelectSingleNode("Root");
+
+        foreach (XmlElement node in root)
+        {
+            if(node.ChildNodes[0].InnerText == value_1)
+            {
+                node.ChildNodes[1].InnerText = value_2;
+                return;
+            }
+        }
+
         XmlElement element = xml.CreateElement("Node");
         element.SetAttribute("Type", "string");
 

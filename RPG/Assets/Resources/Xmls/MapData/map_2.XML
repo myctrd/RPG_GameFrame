@@ -362,7 +362,7 @@
   </Node>
   <Node Type="string">
     <Title>86</Title>
-    <Info>LINE:5,COL:11,ID:1,NPC:0</Info>
+    <Info>LINE:5,COL:11,ID:1,NPC:20006</Info>
   </Node>
   <Node Type="string">
     <Title>87</Title>
@@ -574,7 +574,7 @@
   </Node>
   <Node Type="string">
     <Title>139</Title>
-    <Info>LINE:9,COL:4,ID:1,NPC:0</Info>
+    <Info>LINE:9,COL:4,ID:1,NPC:20008</Info>
   </Node>
   <Node Type="string">
     <Title>140</Title>
@@ -658,7 +658,7 @@
   </Node>
   <Node Type="string">
     <Title>160</Title>
-    <Info>LINE:10,COL:10,ID:1,NPC:0</Info>
+    <Info>LINE:10,COL:10,ID:1,NPC:20007</Info>
   </Node>
   <Node Type="string">
     <Title>161</Title>
