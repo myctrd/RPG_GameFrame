@@ -21,6 +21,24 @@ public class DataManager : MonoBehaviour {
     XmlDocument xml_equipData;
     XmlDocument xml_notesData;
 
+    public void DeleteAll()
+    {
+        DeleteXML("ItemData.XML");
+        DeleteXML("EquipData.XML");
+        DeleteXML("NotesData.XML");
+        LoadItemData();
+        LoadEquipData();
+        LoadNotesData();
+    }
+
+    void DeleteXML(string fileName)
+    {
+        if (File.Exists(Application.dataPath + dataPath + fileName))
+        {
+            File.Delete(Application.dataPath + dataPath + fileName);
+        }
+    }
+
     public void LoadItemData()
     {
         if (File.Exists(Application.dataPath + dataPath + "ItemData.XML"))

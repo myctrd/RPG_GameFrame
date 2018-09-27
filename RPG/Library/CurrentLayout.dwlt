@@ -20,7 +20,7 @@ MonoBehaviour:
   m_ShowMode: 4
   m_Title: 
   m_RootView: {fileID: 2}
-  m_MinSize: {x: 950, y: 471}
+  m_MinSize: {x: 950, y: 371}
   m_MaxSize: {x: 10000, y: 10000}
 --- !u!114 &2
 MonoBehaviour:
@@ -88,10 +88,10 @@ MonoBehaviour:
     y: 30
     width: 1920
     height: 947
-  m_MinSize: {x: 911, y: 421}
+  m_MinSize: {x: 909, y: 321}
   m_MaxSize: {x: 22006, y: 10021}
   vertical: 0
-  controlID: 153
+  controlID: 119
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -132,10 +132,10 @@ MonoBehaviour:
     y: 0
     width: 986
     height: 947
-  m_MinSize: {x: 202, y: 421}
+  m_MinSize: {x: 200, y: 321}
   m_MaxSize: {x: 4002, y: 8021}
   vertical: 1
-  controlID: 11
+  controlID: 133
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -229,16 +229,16 @@ MonoBehaviour:
     y: 0
     width: 986
     height: 384
-  m_MinSize: {x: 200, y: 200}
+  m_MinSize: {x: 100, y: 100}
   m_MaxSize: {x: 4000, y: 4000}
-  m_ActualView: {fileID: 19}
+  m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
   - {fileID: 19}
   - {fileID: 13}
   - {fileID: 12}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -402,21 +402,21 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: b081feffe4e3fefff004ffff4866ffff9492ffffd8d5ffff1efcfffff4ffffff000000006639000084390000163a0000263a00003a3a0000523a0000
+    m_ExpandedIDs: 78dcfeffd4dffeff26f6feff2cf6feff8ae0ffff5ee4ffff62e4ffff66e4ffff8ee4ffff94e4ffff1efcffff00000000582c0000682c00007c2c0000942c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: btn_clear
+      m_OriginalName: btn_clear
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: -74632
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 7}
     m_SearchString: 
@@ -485,7 +485,7 @@ MonoBehaviour:
     width: 413
     height: 926
   m_SearchFilter:
-    m_NameFilter: luacal
+    m_NameFilter: 
     m_ClassNames: []
     m_AssetLabels: []
     m_AssetBundleNames: []
@@ -495,19 +495,20 @@ MonoBehaviour:
     m_ScenePaths: []
     m_ShowAllHits: 0
     m_SearchArea: 0
-    m_Folders: []
+    m_Folders:
+    - Assets/Resources/Scripts/Localization
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Resources/UIPrefabs/UIPanels
+  - Assets/Resources/Scripts/Localization
   m_LastFoldersGridSize: -1
   m_LastProjectPath: D:\Projects\Rejec\RPG
   m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 119}
-    m_SelectedIDs: 
-    m_LastClickedID: 0
-    m_ExpandedIDs: 0000000078270000c8270000dc270000ec270000f02700004228000072280000f42800004c2900006a29000070290000562a0000682a0000762a0000142b0000d02b0000c62c0000c82c000000ca9a3bffffff7f
+    m_SelectedIDs: d8290000
+    m_LastClickedID: 10712
+    m_ExpandedIDs: 000000007a270000ca270000de270000ee270000f22700004428000074280000f62800004e2900006c29000072290000582a00006a2a0000782a0000162b0000d62b0000ea2c0000ec2c000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -535,7 +536,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000078270000c8270000dc270000ec270000f02700004228000072280000f42800004c2900006a29000070290000562a0000682a0000762a0000142b0000d02b0000c62c0000c82c0000
+    m_ExpandedIDs: 000000007a270000ca270000de270000ee270000f22700004428000074280000f62800004e2900006c29000072290000582a00006a2a0000782a0000162b0000d62b0000ea2c0000ec2c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -693,14 +694,14 @@ MonoBehaviour:
     width: 984
     height: 363
   m_SceneLighting: 1
-  lastFramingTime: 63671.591183091514
+  lastFramingTime: 971.8721401340333
   m_2DMode: 1
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 320, y: 820, z: 0}
+    m_Target: {x: 1080, y: 360, z: 0}
     speed: 2
-    m_Value: {x: 320, y: 820, z: 0}
+    m_Value: {x: 1080, y: 360, z: 0}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -727,9 +728,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 740.32996
+    m_Target: 689.06024
     speed: 2
-    m_Value: 740.32996
+    m_Value: 689.06024
   m_Ortho:
     m_Target: 1
     speed: 2

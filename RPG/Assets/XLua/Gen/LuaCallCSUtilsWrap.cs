@@ -31,8 +31,9 @@ namespace XLua.CSObjectWrap
 			Utils.EndObjectRegister(type, L, translator, null, null,
 			    null, null, null);
 
-		    Utils.BeginClassRegister(type, L, __CreateInstance, 23, 1, 1);
+		    Utils.BeginClassRegister(type, L, __CreateInstance, 24, 1, 1);
 			Utils.RegisterFunc(L, Utils.CLS_IDX, "PrintTest", _m_PrintTest_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "ClearArchive", _m_ClearArchive_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "GetRoleAvailable", _m_GetRoleAvailable_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "SetRolePlayer", _m_SetRolePlayer_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "GetPlayerData", _m_GetPlayerData_xlua_st_);
@@ -106,6 +107,29 @@ namespace XLua.CSObjectWrap
                 {
                     
                     LuaCallCSUtils.PrintTest(  );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_ClearArchive_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+            
+            
+                
+                {
+                    
+                    LuaCallCSUtils.ClearArchive(  );
                     
                     
                     

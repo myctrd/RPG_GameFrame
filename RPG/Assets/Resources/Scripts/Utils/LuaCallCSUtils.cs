@@ -20,6 +20,13 @@ public class LuaCallCSUtils {
         Debug.Log("PrintTest");
     }
 
+    public static void ClearArchive()
+    {
+        PlayerPrefs.DeleteAll();
+        DataManager.m_instance.DeleteAll();
+        LocalizationManager.m_instance.InitLanguage();
+    }
+
     public static int[] GetRoleAvailable()
     {
         return GameManager.m_instance.GetRoleAvailable();

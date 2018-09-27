@@ -122,4 +122,6 @@ return {
 ["WannaFight"] = {"WannaFight","想找打吗?","Wanna fight with me?",},
 ["DoFight"] = {"DoFight","我要好好教训你。","I will kick your ass.",},
 ["DontFight"] = {"DontFight","路过，大佬！","I love peace.",},
+["ClearArchive"] = {"ClearArchive","清空存档","Clear archive",},
+["ArchiveCleared"] = {"ArchiveCleared","存档已清空。","Archive cleared.",},
 }
