@@ -4,6 +4,15 @@ using UnityEngine.UI;
 
 public class UIMarker : UIBase
 {
+    public void SetButtonInteractable(bool state)
+    {
+        if (transform.GetComponent<Button>() != null)
+        {
+            var button = transform.GetComponent<Button>();
+            button.interactable = state;
+        }
+    }
+
     public void RemoveListener()
     {
         if (transform.GetComponent<Button>() != null)

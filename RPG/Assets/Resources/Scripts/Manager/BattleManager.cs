@@ -27,12 +27,48 @@ public class BattleManager : MonoBehaviour {
         return player;
     }
 
+    private int turnIndex;
+
     // Use this for initialization
     public void StartBattle (int id)
     {
         player = GameManager.m_instance.GetPlayerData();
         enemy = GameManager.m_instance.GetEnemyData(id);
         EventManager.Broadcast("Battle.UpdateBattleInfo");
+        turnIndex = 0;
+        SwitchTurn();
+    }
+
+    public void SwitchTurn()
+    {
+        Dictionary<string, object> p = new Dictionary<string, object>();
+        if (turnIndex == 0)  //玩家回合
+        {
+            p.Add("txt", "YourTurn");
+            turnIndex = 1;
+            EventManager.Broadcast("Battle.YourTurn");
+        }
+        else  //敌人回合
+        {
+            p.Add("txt", "EnemyTurn");
+            turnIndex = 0;
+            StartCoroutine("EnemyAction");
+        }
+        EventManager.Broadcast("Common.FloatingMsg", p);
+    }
+
+    IEnumerator EnemyAction()
+    {
+        yield return new WaitForSeconds(1);
+        if (enemy != null)
+        {
+            RoleAttackRole(enemy, player);
+            yield return new WaitForSeconds(1);
+            if (enemy != null)
+            {
+                SwitchTurn();
+            }
+        }
     }
 
     public void EndBattle()

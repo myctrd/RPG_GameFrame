@@ -124,4 +124,12 @@ return {
 ["DontFight"] = {"DontFight","路过，大佬！","I love peace.",},
 ["ClearArchive"] = {"ClearArchive","清空存档","Clear archive",},
 ["ArchiveCleared"] = {"ArchiveCleared","存档已清空。","Archive cleared.",},
+["InvalidAction"] = {"InvalidAction","无效操作","Invalid action",},
+["TurnEnded"] = {"TurnEnded","回合结束","Turn ended",},
+["CantAction"] = {"CantAction","本回合内无法再次行动","Can't take action this turn",},
+["YourTurn"] = {"YourTurn","你的回合","Your turn",},
+["EnemyTurn"] = {"EnemyTurn","敌人的回合","Enemy's turn",},
+["Confirm"] = {"Confirm","确认","Confirm",},
+["Victory"] = {"Victory","胜利！","Victory!",},
+["Defeat"] = {"Defeat","失败！","Defeat!",},
 }

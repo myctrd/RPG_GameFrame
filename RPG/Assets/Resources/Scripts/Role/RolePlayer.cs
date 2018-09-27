@@ -144,7 +144,14 @@ public class RolePlayer : RoleBase
         m_Name = (string)data["ROLENAME"];
 
         m_Pro = int.Parse((string)data["PRO"]);
-        hp = int.Parse((string)data["BASICHP"]);
+        if(PlayerPrefs.HasKey(m_Name + "_HP"))
+        {
+            hp = PlayerPrefs.GetInt(m_Name + "_HP");
+        }
+        else
+        {
+            hp = int.Parse((string)data["BASICHP"]);
+        }
         maxHp = int.Parse((string)data["BASICHP"]);
         mp = int.Parse((string)data["BASICMP"]);
         maxMp = int.Parse((string)data["BASICMP"]);

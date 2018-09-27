@@ -57,6 +57,11 @@ public class LuaCallCSUtils {
         BattleManager.m_instance.StartBattle(id);
     }
 
+    public static void SwitchTurn()
+    {
+        BattleManager.m_instance.SwitchTurn();
+    }
+
     public static void EndBattle()
     {
         BattleManager.m_instance.EndBattle();
@@ -119,6 +124,11 @@ public class LuaCallCSUtils {
     public static bool PlayerPrefsHasKey(string key)
     {
         return PlayerPrefs.HasKey(key);
+    }
+
+    public static void PlayerPrefSetInt(string key, int value)
+    {
+        PlayerPrefs.SetInt(key, value);
     }
 
     public static void ActivateEvent(string eventID)

@@ -31,7 +31,7 @@ namespace XLua.CSObjectWrap
 			Utils.EndObjectRegister(type, L, translator, null, null,
 			    null, null, null);
 
-		    Utils.BeginClassRegister(type, L, __CreateInstance, 24, 1, 1);
+		    Utils.BeginClassRegister(type, L, __CreateInstance, 26, 1, 1);
 			Utils.RegisterFunc(L, Utils.CLS_IDX, "PrintTest", _m_PrintTest_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "ClearArchive", _m_ClearArchive_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "GetRoleAvailable", _m_GetRoleAvailable_xlua_st_);
@@ -40,6 +40,7 @@ namespace XLua.CSObjectWrap
             Utils.RegisterFunc(L, Utils.CLS_IDX, "GetPlayerGold", _m_GetPlayerGold_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "SetPlayerEquip", _m_SetPlayerEquip_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "StartBattle", _m_StartBattle_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "SwitchTurn", _m_SwitchTurn_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "EndBattle", _m_EndBattle_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "GetBattlePlayerData", _m_GetBattlePlayerData_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "GetEnemyData", _m_GetEnemyData_xlua_st_);
@@ -52,6 +53,7 @@ namespace XLua.CSObjectWrap
             Utils.RegisterFunc(L, Utils.CLS_IDX, "UpdateItem", _m_UpdateItem_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "SetInteraction", _m_SetInteraction_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "PlayerPrefsHasKey", _m_PlayerPrefsHasKey_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "PlayerPrefSetInt", _m_PlayerPrefSetInt_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "ActivateEvent", _m_ActivateEvent_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "AddGold", _m_AddGold_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "ShowItem", _m_ShowItem_xlua_st_);
@@ -279,6 +281,29 @@ namespace XLua.CSObjectWrap
                     int _id = LuaAPI.xlua_tointeger(L, 1);
                     
                     LuaCallCSUtils.StartBattle( _id );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_SwitchTurn_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+            
+            
+                
+                {
+                    
+                    LuaCallCSUtils.SwitchTurn(  );
                     
                     
                     
@@ -576,6 +601,31 @@ namespace XLua.CSObjectWrap
                     
                     
                     return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_PlayerPrefSetInt_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+            
+            
+                
+                {
+                    string _key = LuaAPI.lua_tostring(L, 1);
+                    int _value = LuaAPI.xlua_tointeger(L, 2);
+                    
+                    LuaCallCSUtils.PlayerPrefSetInt( _key, _value );
+                    
+                    
+                    
+                    return 0;
                 }
                 
             } catch(System.Exception gen_e) {
