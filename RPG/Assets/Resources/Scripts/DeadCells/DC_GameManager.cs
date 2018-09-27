@@ -90,12 +90,11 @@ public class DC_GameManager : MonoBehaviour {
                         speedx = 0;
                 }
             }
-
-            if (Input.GetKey(KeyCode.A))  //左走
+            if (Input.GetAxis("Horizontal") < 0 && Input.GetKey(KeyCode.A))  //左走
             {
                 speedx = rolePlayer.CanWalk(Direction.Left) ? -300 : 0;
             }
-            if (Input.GetKey(KeyCode.D))  //右走
+            if (Input.GetAxis("Horizontal") > 0 && Input.GetKey(KeyCode.D))  //右走
             {
                 speedx = rolePlayer.CanWalk(Direction.Right) ? 300 : 0;
             }

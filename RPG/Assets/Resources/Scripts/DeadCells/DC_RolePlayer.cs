@@ -44,6 +44,11 @@ public class DC_RolePlayer : UIRoleBase
         pos_y -= line * DC_GameManager.m_instance.tileWidth;
     }
 
+    public void PlayAnimation(string animation)
+    {
+        animator.Play(animation);
+    }
+
     public override bool CanWalk(Direction dir)
     {
         
