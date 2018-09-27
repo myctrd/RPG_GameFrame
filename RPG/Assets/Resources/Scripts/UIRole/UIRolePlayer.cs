@@ -12,6 +12,11 @@ public class UIRolePlayer : UIRoleBase
         last_dir = Direction.None;
     }
 
+    public RoleState GetRoleState()
+    {
+        return m_state;
+    }
+
     public override void StopMove()
     {
         m_state = RoleState.None;

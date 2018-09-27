@@ -35,6 +35,13 @@ public class BattleManager : MonoBehaviour {
         EventManager.Broadcast("Battle.UpdateBattleInfo");
     }
 
+    public void EndBattle()
+    {
+        player = null;
+        enemy = null;
+        GameManager.m_instance.RemoveEnemyData();
+    }
+
     public void RoleAttackRole(RoleBase a, RoleBase b)  //a攻击b
     {
         b.RoleBeAttacked((float)a.atk, a.cr, a.cv);

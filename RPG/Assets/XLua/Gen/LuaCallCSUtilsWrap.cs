@@ -31,7 +31,7 @@ namespace XLua.CSObjectWrap
 			Utils.EndObjectRegister(type, L, translator, null, null,
 			    null, null, null);
 
-		    Utils.BeginClassRegister(type, L, __CreateInstance, 22, 1, 1);
+		    Utils.BeginClassRegister(type, L, __CreateInstance, 23, 1, 1);
 			Utils.RegisterFunc(L, Utils.CLS_IDX, "PrintTest", _m_PrintTest_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "GetRoleAvailable", _m_GetRoleAvailable_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "SetRolePlayer", _m_SetRolePlayer_xlua_st_);
@@ -39,6 +39,7 @@ namespace XLua.CSObjectWrap
             Utils.RegisterFunc(L, Utils.CLS_IDX, "GetPlayerGold", _m_GetPlayerGold_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "SetPlayerEquip", _m_SetPlayerEquip_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "StartBattle", _m_StartBattle_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "EndBattle", _m_EndBattle_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "GetBattlePlayerData", _m_GetBattlePlayerData_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "GetEnemyData", _m_GetEnemyData_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "RoleAttackRole", _m_RoleAttackRole_xlua_st_);
@@ -254,6 +255,29 @@ namespace XLua.CSObjectWrap
                     int _id = LuaAPI.xlua_tointeger(L, 1);
                     
                     LuaCallCSUtils.StartBattle( _id );
+                    
+                    
+                    
+                    return 0;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_EndBattle_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+            
+            
+                
+                {
+                    
+                    LuaCallCSUtils.EndBattle(  );
                     
                     
                     

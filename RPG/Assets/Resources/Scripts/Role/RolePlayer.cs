@@ -127,6 +127,11 @@ public class RolePlayer : RoleBase
             case 8:  //打开背包
                 LuaScriptManager.m_instance.OpenUIPanel("UIPanelBag");
                 break;
+            case 9:  //战斗
+                p.Clear();
+                p.Add("enemyID", m_event);
+                EventManager.Broadcast("Battle.StartBattle", p);
+                break;
             default:
                 break;
         }

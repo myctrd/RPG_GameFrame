@@ -45,8 +45,9 @@ end
 
 function self:Close()
 	OnExit()
-	self.ui:Close()
 	GlobalHooks.openUI:OpenUIPanel("UIPanelGameDeck")
+	self.ui:Close()
+	CS.LuaCallCSUtils.EndBattle()
 end
 
 local function OnClickQuit()

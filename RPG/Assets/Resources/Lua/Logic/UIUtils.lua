@@ -32,6 +32,11 @@ function self:Init()
 	GlobalHooks.eventManager:AddListener("Dialog.OptionsDialog", function(name, params)
 		GlobalHooks.openUI:OpenUIPanel("UIPanelDialog", 2, {d_type = 3, name = params.name ,txt = params.txt, options = params.options, events = params.events})
 	end)
+	
+	GlobalHooks.eventManager:AddListener("Battle.StartBattle", function(name, params)
+		GlobalHooks.openUI.gameDeck.ui:Close()
+		GlobalHooks.openUI:OpenUIPanel("UIPanelBattle", 1, {enemyID = params.enemyID})
+	end)
 
 	GlobalHooks.eventManager:AddListener("Battle.BattleTips", function(name, params)
 		GlobalHooks.openUI:InitUIComponent("UIComponentBattleTips", nil, 4, {txt = params.txt})

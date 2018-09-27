@@ -82,6 +82,15 @@ public class GameManager : MonoBehaviour {
         return m_Player;
     }
 
+    public void RemoveEnemyData()
+    {
+        if(gameObject.GetComponent<RoleEnemy>())
+        {
+            RoleEnemy role = gameObject.GetComponent<RoleEnemy>();
+            Destroy(role);
+        }
+    }
+
     public RoleEnemy GetEnemyData(int id)
     {
         if(m_Enemy == null)

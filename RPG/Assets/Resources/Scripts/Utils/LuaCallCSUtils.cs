@@ -50,6 +50,11 @@ public class LuaCallCSUtils {
         BattleManager.m_instance.StartBattle(id);
     }
 
+    public static void EndBattle()
+    {
+        BattleManager.m_instance.EndBattle();
+    }
+
     public static RolePlayer GetBattlePlayerData()
     {
         return BattleManager.m_instance.GetPlayerData();

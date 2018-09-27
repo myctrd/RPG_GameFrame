@@ -66,7 +66,7 @@ public class GameSceneManager : MonoBehaviour {
             if (canInteraction == false)
                 return;
 
-            if (Input.GetKeyDown(KeyCode.F))  //尝试触发NPC事件
+            if (Input.GetKeyDown(KeyCode.F) && rolePlayer.GetRoleState() == RoleState.None)  //尝试触发NPC事件
             {
                 if (rolePlayer.GetInteractiveNPC() != 0)
                 {
