@@ -112,9 +112,10 @@ public class DC_GameManager : MonoBehaviour {
                     }
                     if (GetTile(rolePlayer.line, rolePlayer.col).id == 1)
                         rolePlayer.StopMove();
-                    if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))  //停止
+                    if (Input.GetAxis("Vertical") == 0 || Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))  //停止
+                    {
                         speedy = 0;
-                    
+                    }
                     break;
                 default:  //走路或idle时
                     if (Input.GetAxis("Horizontal") < 0 && Input.GetKey(KeyCode.A))  //左走
