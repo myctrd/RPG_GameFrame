@@ -102,10 +102,10 @@ public class DC_RolePlayer : UIRoleBase
         {
             case Direction.Up:
                 next_tile = DC_GameManager.m_instance.GetTile(line - 1, col);
-                return (next_tile.id == 1 || transform.localPosition.y < pos_y);
+                return (next_tile != null && (next_tile.id == 1 || transform.localPosition.y < pos_y));
             case Direction.Down:
                 next_tile = DC_GameManager.m_instance.GetTile(line + 1, col);
-                return (next_tile.id == 1 || transform.localPosition.y > pos_y);
+                return (next_tile != null && (next_tile.id == 1 || transform.localPosition.y > pos_y));
             case Direction.Left:
                 if (m_state != RoleState.Jumping)
                     m_state = RoleState.Walking;
