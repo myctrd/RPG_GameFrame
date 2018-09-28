@@ -3,12 +3,10 @@ using UnityEngine;
 
 public class DC_RolePlayer : UIRoleBase
 {
-
-    private Direction last_dir;
+    
     public override void SetUIRole(int id, int line, int col, float pos_x, float pos_y)
     {
         base.SetUIRole(id, line, col, pos_x, pos_y);
-        last_dir = Direction.None;
     }
 
     public RoleState GetRoleState()
@@ -32,7 +30,6 @@ public class DC_RolePlayer : UIRoleBase
     {
         transform.localPosition = new Vector3(transform.localPosition.x, pos_y, 0);
         m_state = RoleState.None;
-        m_dir = Direction.None;
         animator.Play("idle");
     }
 
@@ -49,6 +46,53 @@ public class DC_RolePlayer : UIRoleBase
         animator.Play(animation);
     }
 
+    public override bool CanClimb(Direction dir)
+    {
+
+        StartMove();
+        switch (dir)
+        {
+            case Direction.Up:
+                next_tile = DC_GameManager.m_instance.GetTile(line - 1, col);
+                if (DC_GameManager.m_instance.GetTile(line, col).id == 0)  //在梯子上
+                {
+                    if (m_state != RoleState.Jumping)
+                    {
+                        m_state = RoleState.Climbing;
+                        animator.Play("walk_up");
+                    }
+                    return (next_tile.id != 2 || transform.localPosition.y < pos_y);
+                }
+                else  //尝试往梯子上爬
+                {
+                    return (next_tile.id == 0 || transform.localPosition.y < pos_y);
+                }
+            case Direction.Down:
+                next_tile = DC_GameManager.m_instance.GetTile(line + 1, col);
+                if (DC_GameManager.m_instance.GetTile(line, col).id == 0)  //在梯子上
+                {
+                    if (m_state != RoleState.Jumping)
+                    {
+                        m_state = RoleState.Climbing;
+                        animator.Play("walk_up");
+                    }
+                    return (next_tile.id != 2 || transform.localPosition.y > pos_y);
+                }
+                else  //尝试往梯子上爬
+                {
+                    return (next_tile.id == 0 || transform.localPosition.y > pos_y);
+                }
+            case Direction.Left:
+                next_tile = DC_GameManager.m_instance.GetTile(line, col - 1);
+                return (next_tile.id == 0 || transform.localPosition.x > pos_x);
+            case Direction.Right:
+                next_tile = DC_GameManager.m_instance.GetTile(line, col + 1);
+                return (next_tile.id == 0 || transform.localPosition.x < pos_x);
+            default:
+                return false;
+        }
+    }
+
     public override bool CanWalk(Direction dir)
     {
         
@@ -58,32 +102,22 @@ public class DC_RolePlayer : UIRoleBase
         {
             case Direction.Up:
                 next_tile = DC_GameManager.m_instance.GetTile(line - 1, col);
-                return ((next_tile.id == 1 && next_tile.npc == 0) || transform.localPosition.y < pos_y);
+                return (next_tile.id == 1 || transform.localPosition.y < pos_y);
             case Direction.Down:
                 next_tile = DC_GameManager.m_instance.GetTile(line + 1, col);
-                return ((next_tile.id == 1 && next_tile.npc == 0) || transform.localPosition.y > pos_y);
+                return (next_tile.id == 1 || transform.localPosition.y > pos_y);
             case Direction.Left:
                 if (m_state != RoleState.Jumping)
                     m_state = RoleState.Walking;
-                last_dir = Direction.Left;
-                //if (m_dir != Direction.Left)
-                //{
-                    m_dir = Direction.Left;
-                    animator.Play("walk_left");
-                //}
+                animator.Play("walk_left");
                 next_tile = DC_GameManager.m_instance.GetTile(line, col - 1);
-                return ((next_tile.id == 1) || transform.localPosition.x > pos_x);
+                return (next_tile.id == 1 || transform.localPosition.x > pos_x);
             case Direction.Right:
                 if (m_state != RoleState.Jumping)
                     m_state = RoleState.Walking;
-                last_dir = Direction.Right;
-                //if (m_dir != Direction.Right)
-                //{
-                    m_dir = Direction.Right;
-                    animator.Play("walk_right");
-                //}
+                animator.Play("walk_right");
                 next_tile = DC_GameManager.m_instance.GetTile(line, col + 1);
-                return ((next_tile.id == 1) || transform.localPosition.x < pos_x);
+                return (next_tile.id == 1 || transform.localPosition.x < pos_x);
             default:
                 return false;
         }

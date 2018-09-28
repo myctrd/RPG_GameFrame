@@ -17,7 +17,6 @@ local RoleID =
 	"10002",
 	"10003",
 	"10004",
-	"20001",
 }
 
 local function LoadStory()

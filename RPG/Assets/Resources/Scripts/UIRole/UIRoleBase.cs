@@ -5,7 +5,7 @@ public class UIRoleBase : MonoBehaviour {
     protected int roleID;
 
     protected Direction m_dir;
-    protected RoleState m_state;
+    public RoleState m_state;
 
     protected Animator animator;
     protected Image img;
@@ -26,7 +26,12 @@ public class UIRoleBase : MonoBehaviour {
     }
 
     public virtual void StopMove() { }
-    
+
+    public virtual bool CanClimb(Direction dir)
+    {
+        return false;
+    }
+
 
     public virtual bool CanWalk(Direction dir)
     {
@@ -56,4 +61,5 @@ public enum RoleState
     None = 0,
     Walking = 1,
     Jumping = 2,
+    Climbing = 3,
 }

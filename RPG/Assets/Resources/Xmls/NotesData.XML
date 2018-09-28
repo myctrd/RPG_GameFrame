@@ -1,2 +1,7 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<Root />
+<Root>
+  <Node Type="string">
+    <ID>10001</ID>
+    <TYPE>1</TYPE>
+  </Node>
+</Root>

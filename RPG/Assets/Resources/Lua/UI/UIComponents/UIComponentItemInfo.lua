@@ -97,12 +97,12 @@ local function InitItemInfo(index, data)
 				self.ui:Close()
 			end)
 		elseif(data["ITEMTYPE"] == "2")then
-			self["btn_op"]:SetActive(false)
-			-- self["txt_op"]:SetText(GetText("Use"))
-			-- self["btn_op"]:AddListener(function()
+			-- self["btn_op"]:SetActive(false)
+			self["txt_op"]:SetText(GetText("Use"))
+			self["btn_op"]:AddListener(function()
 				-- itemManager:ConsumeItem(data["ID"], 1)
-				-- self.ui:Close()
-			-- end)
+				self.ui:Close()
+			end)
 		end
 	elseif index == 2 then
 		local playerData = CS.LuaCallCSUtils.GetPlayerData()

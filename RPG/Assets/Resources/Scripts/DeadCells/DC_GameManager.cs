@@ -61,65 +61,99 @@ public class DC_GameManager : MonoBehaviour {
                 rolePlayer.WalkOneTile(1, 0);
             }
 
-            if (rolePlayer.GetRoleState() == RoleState.Jumping)  //跳跃时
+            switch(rolePlayer.GetRoleState())
             {
-                speedy -= g * Time.deltaTime;  //重力加速度
-                if(speedy > 0)  //向上跳时检查碰顶
-                {
-                    if (rolePlayer.CanWalk(Direction.Up) == false)
-                        speedy = 0;
-                }
-                if(speedy < 0)  //向下跳时检查落地
-                {
-                    if (rolePlayer.CanWalk(Direction.Down) == false)
+                case RoleState.Jumping:  //跳跃时
+                    if (Input.GetAxis("Horizontal") < 0 && Input.GetKey(KeyCode.A))  //左走
                     {
-                        rolePlayer.SetRoleState(RoleState.None);
-                        speedx = 0;
+                        speedx = (rolePlayer.CanWalk(Direction.Left) || rolePlayer.CanClimb(Direction.Left)) ? -300 : 0;
+                    }
+                    if (Input.GetAxis("Horizontal") > 0 && Input.GetKey(KeyCode.D))  //右走
+                    {
+                        speedx = (rolePlayer.CanWalk(Direction.Right) || rolePlayer.CanClimb(Direction.Right)) ? 300 : 0;
+                    }
+                    speedy -= g * Time.deltaTime;  //重力加速度
+                    if (speedy > 0)  //向上跳时检查碰顶
+                    {
+                        if (!rolePlayer.CanWalk(Direction.Up) && !rolePlayer.CanClimb(Direction.Up))
+                            speedy = 0;
+                    }
+                    if (speedy < 0)  //向下跳时检查落地
+                    {
+                        if (!rolePlayer.CanWalk(Direction.Down) && GetTile(rolePlayer.line, rolePlayer.col).id == 1)
+                        {
+                            rolePlayer.SetRoleState(RoleState.None);
+                            speedx = 0;
+                            speedy = 0;
+                            rolePlayer.StopMove();
+                        }
+                    }
+                    if (speedx > 0)  //向右跳时检查碰撞
+                    {
+                        if (!rolePlayer.CanWalk(Direction.Right) && !rolePlayer.CanClimb(Direction.Right))
+                            speedx = 0;
+                    }
+                    if (speedx < 0)  //向左跳时检查碰撞
+                    {
+                        if (!rolePlayer.CanWalk(Direction.Left) && !rolePlayer.CanClimb(Direction.Left))
+                            speedx = 0;
+                    }
+                    break;
+                case RoleState.Climbing:  //爬行时
+                    if (Input.GetAxis("Vertical") > 0 && Input.GetKey(KeyCode.W))  //左上
+                    {
+                        speedy = (rolePlayer.CanClimb(Direction.Up) || rolePlayer.CanWalk(Direction.Up)) ? 300 : 0;
+                        speedx = rolePlayer.CanClimb(Direction.Up) ? 0 : speedx;
+                    }
+                    if (Input.GetAxis("Vertical") < 0 && Input.GetKey(KeyCode.S))  //右下
+                    {
+                        speedy = (rolePlayer.CanClimb(Direction.Down) || rolePlayer.CanWalk(Direction.Down)) ? -300 : 0;
+                        speedx = rolePlayer.CanClimb(Direction.Up) ? 0 : speedx;
+                    }
+                    if (GetTile(rolePlayer.line, rolePlayer.col).id == 1)
+                        rolePlayer.StopMove();
+                    if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))  //停止
                         speedy = 0;
+                    
+                    break;
+                default:  //走路或idle时
+                    if (Input.GetAxis("Horizontal") < 0 && Input.GetKey(KeyCode.A))  //左走
+                    {
+                        speedx = rolePlayer.CanWalk(Direction.Left) ? -300 : 0;
+                    }
+                    if (Input.GetAxis("Horizontal") > 0 && Input.GetKey(KeyCode.D))  //右走
+                    {
+                        speedx = rolePlayer.CanWalk(Direction.Right) ? 300 : 0;
+                    }
+                    if (Input.GetAxis("Vertical") > 0 && Input.GetKey(KeyCode.W))  //左上
+                    {
+                        speedy = rolePlayer.CanClimb(Direction.Up) ? 300 : 0;
+                        speedx = rolePlayer.CanClimb(Direction.Up) ? 0 : speedx;
+                    }
+                    if (Input.GetAxis("Vertical") < 0 && Input.GetKey(KeyCode.S))  //右下
+                    {
+                        speedy = rolePlayer.CanClimb(Direction.Down) ? -300 : 0;
+                        speedx = rolePlayer.CanClimb(Direction.Up) ? 0 : speedx;
+                    }
+                    if (rolePlayer.CanWalk(Direction.Down) && !rolePlayer.CanClimb(Direction.Down))
+                    {
+                        rolePlayer.SetRoleState(RoleState.Jumping);
+                        speedx *= 0.5f;
+                        speedy = 0;
+                        return;
+                    }
+                    if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))  //停止
+                    {
+                        speedx = 0;
                         rolePlayer.StopMove();
                     }
-                }
-                if (speedx > 0)  //向右跳时检查碰撞
-                {
-                    if (rolePlayer.CanWalk(Direction.Right) == false)
-                        speedx = 0;
-                }
-                if (speedx < 0)  //向左跳时检查碰撞
-                {
-                    if (rolePlayer.CanWalk(Direction.Left) == false)
-                        speedx = 0;
-                }
+                    if (Input.GetKeyDown(KeyCode.Space))  //跳跃
+                    {
+                        speedy = 750;
+                        rolePlayer.SetRoleState(RoleState.Jumping);
+                    }
+                    break;
             }
-            if (Input.GetAxis("Horizontal") < 0 && Input.GetKey(KeyCode.A))  //左走
-            {
-                speedx = rolePlayer.CanWalk(Direction.Left) ? -300 : 0;
-            }
-            if (Input.GetAxis("Horizontal") > 0 && Input.GetKey(KeyCode.D))  //右走
-            {
-                speedx = rolePlayer.CanWalk(Direction.Right) ? 300 : 0;
-            }
-
-            if (rolePlayer.GetRoleState() == RoleState.Walking || rolePlayer.GetRoleState() == RoleState.None)  //走路时或idle时
-            {
-                if (rolePlayer.CanWalk(Direction.Down))
-                {
-                    rolePlayer.SetRoleState(RoleState.Jumping);
-                    speedx *= 0.5f;
-                    speedy = 0;
-                    return;
-                }
-                if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.D))  //停止
-                {
-                    speedx = 0;
-                    rolePlayer.StopMove();
-                }
-                if (Input.GetKeyDown(KeyCode.Space))  //跳跃
-                {
-                    speedy = 750;
-                    rolePlayer.SetRoleState(RoleState.Jumping);
-                }
-            }
-            
         }
     }
 
