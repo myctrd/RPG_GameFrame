@@ -31,10 +31,12 @@ namespace XLua.CSObjectWrap
 			Utils.EndObjectRegister(type, L, translator, null, null,
 			    null, null, null);
 
-		    Utils.BeginClassRegister(type, L, __CreateInstance, 26, 1, 1);
+		    Utils.BeginClassRegister(type, L, __CreateInstance, 27, 1, 1);
 			Utils.RegisterFunc(L, Utils.CLS_IDX, "PrintTest", _m_PrintTest_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "ClearArchive", _m_ClearArchive_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "GetPlayerList", _m_GetPlayerList_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "GetPlayerData", _m_GetPlayerData_xlua_st_);
+            Utils.RegisterFunc(L, Utils.CLS_IDX, "GetRoleNum", _m_GetRoleNum_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "SetRolePlayer", _m_SetRolePlayer_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "GetPlayerGold", _m_GetPlayerGold_xlua_st_);
             Utils.RegisterFunc(L, Utils.CLS_IDX, "SetPlayerEquip", _m_SetPlayerEquip_xlua_st_);
@@ -154,9 +156,60 @@ namespace XLua.CSObjectWrap
             
                 
                 {
-
-                        RolePlayer [] gen_ret = LuaCallCSUtils.GetPlayerList(  );
+                    
+                        RolePlayer[] gen_ret = LuaCallCSUtils.GetPlayerList(  );
                         translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_GetPlayerData_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+                ObjectTranslator translator = ObjectTranslatorPool.Instance.Find(L);
+            
+            
+            
+                
+                {
+                    int _i = LuaAPI.xlua_tointeger(L, 1);
+                    
+                        RolePlayer gen_ret = LuaCallCSUtils.GetPlayerData( _i );
+                        translator.Push(L, gen_ret);
+                    
+                    
+                    
+                    return 1;
+                }
+                
+            } catch(System.Exception gen_e) {
+                return LuaAPI.luaL_error(L, "c# exception:" + gen_e);
+            }
+            
+        }
+        
+        [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
+        static int _m_GetRoleNum_xlua_st_(RealStatePtr L)
+        {
+		    try {
+            
+            
+            
+                
+                {
+                    
+                        int gen_ret = LuaCallCSUtils.GetRoleNum(  );
+                        LuaAPI.xlua_pushinteger(L, gen_ret);
                     
                     
                     
@@ -193,7 +246,6 @@ namespace XLua.CSObjectWrap
             
         }
         
-        
         [MonoPInvokeCallbackAttribute(typeof(LuaCSFunction))]
         static int _m_GetPlayerGold_xlua_st_(RealStatePtr L)
         {
@@ -227,11 +279,11 @@ namespace XLua.CSObjectWrap
             
                 
                 {
-                    string _key = LuaAPI.lua_tostring(L, 1);
+                    int _i = LuaAPI.xlua_tointeger(L, 1);
                     int _slot = LuaAPI.xlua_tointeger(L, 2);
                     int _id = LuaAPI.xlua_tointeger(L, 3);
                     
-                    LuaCallCSUtils.SetPlayerEquip( _key, _slot, _id );
+                    LuaCallCSUtils.SetPlayerEquip( _i, _slot, _id );
                     
                     
                     

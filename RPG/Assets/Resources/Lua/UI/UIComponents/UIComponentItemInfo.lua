@@ -92,9 +92,9 @@ local function InitItemInfo(index, data)
 		
 		if(data["ITEMTYPE"] == "1")then
 			self["btn_op"]:AddListener(function()
-				CS.LuaCallCSUtils.ShowItem(data["ID"])
 				GlobalHooks.openUI.bag.ui:Close()
 				self.ui:Close()
+				CS.LuaCallCSUtils.ShowItem(data["ID"])
 			end)
 		elseif(data["ITEMTYPE"] == "2")then
 			-- self["btn_op"]:SetActive(false)
@@ -105,11 +105,11 @@ local function InitItemInfo(index, data)
 			end)
 		end
 	elseif index == 2 then
-		local playerData = CS.LuaCallCSUtils.GetPlayerData()
+		local playerData = CS.LuaCallCSUtils.GetPlayerData(GlobalHooks.openUI.roleInfo.id)
 		if playerData.equip[tonumber(data["SLOT"]) - 1] == tonumber(data["ID"]) then
 			self["txt_op"]:SetText(GetText("TakeOff"))
 			self["btn_op"]:AddListener(function()
-				CS.LuaCallCSUtils.SetPlayerEquip(tonumber(data["SLOT"]) - 1, 0)
+				CS.LuaCallCSUtils.SetPlayerEquip(GlobalHooks.openUI.roleInfo.id, tonumber(data["SLOT"]) - 1, 0)
 				GlobalHooks.uiUitls:ShowFloatingMsg(GetText("Tip_EquipTakeOff"))
 				self.ui:Close()
 			end) 
@@ -117,7 +117,7 @@ local function InitItemInfo(index, data)
 			self["txt_op"]:SetText(GetText("Equip"))
 			if playerData.m_Pro == tonumber(data["PRO"]) then
 				self["btn_op"]:AddListener(function()
-					CS.LuaCallCSUtils.SetPlayerEquip(tonumber(data["SLOT"]) - 1, tonumber(data["ID"]))
+					CS.LuaCallCSUtils.SetPlayerEquip(GlobalHooks.openUI.roleInfo.id, tonumber(data["SLOT"]) - 1, tonumber(data["ID"]))
 					GlobalHooks.uiUitls:ShowFloatingMsg(GetText("Tip_EquipSuccess"))
 					self.ui:Close()
 				end) 

@@ -8,7 +8,10 @@ local function UpdateItem()
 	end
 	local equipBag = GlobalHooks.item:GetEquipBag(self.selectedIndex)
 	for k, v in pairs(equipBag)do
-		GlobalHooks.openUI:InitUIComponent("UIComponentItem", self["content_bag"]:GetTransfrom(), 0, {itemType = 2, id = v})
+		local data = GlobalHooks.dataReader:FindData("equip", v)
+		-- if tonumber(data["PRO"]) == CS.LuaCallCSUtils.GetPlayerData(GlobalHooks.openUI.roleInfo.id).m_Pro then
+			GlobalHooks.openUI:InitUIComponent("UIComponentItem", self["content_bag"]:GetTransfrom(), 0, {itemType = 2, id = v})
+		-- end
 	end
 end
 
@@ -55,13 +58,14 @@ local function FindUI()
 	self["btn_back"]:AddListener(function()
 		OnExit()
         self.ui:Close()
-		GlobalHooks.openUI:OpenUIPanel("UIPanelRoleInfo", 2)
+		GlobalHooks.openUI:OpenUIPanel("UIPanelRoleInfo", 2, {id = self.id})
     end)
 	OnSelectCol(self.params.slot)
 end
 
 function self:InitUI(name, sort, params)
 	self.params = params
+	self.id = params.id
 	self.ui = CS.UIManager.m_instance:ShowOrCreatePanel(name, sort)
 	OnEnter()
 	FindUI()

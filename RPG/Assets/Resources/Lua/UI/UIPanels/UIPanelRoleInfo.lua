@@ -1,6 +1,19 @@
 local self = {}
 self.__index = self
 
+local function GetNextPlayerData()
+	return CS.LuaCallCSUtils.GetPlayerData(self.id + 1)
+end
+
+local function GetPrePlayerData()
+	if self.id - 1 < 0 then
+		return CS.LuaCallCSUtils.GetPlayerData(CS.LuaCallCSUtils.GetRoleNum() - 1)
+	else
+		return CS.LuaCallCSUtils.GetPlayerData(self.id - 1)
+	end
+end
+
+
 local function ShowEquipInfo(slot, obj, id)
 	local img_icon = self["img_icon_"..slot]
 	local img_empty = self["img_empty_"..slot]
@@ -18,13 +31,17 @@ local function ShowEquipInfo(slot, obj, id)
 		obj:SetSprite("Common/Frame_1")
 		obj:AddListener(function()
 			self:Close()
-			GlobalHooks.openUI:OpenUIPanel("UIPanelEquip", 2, {slot = slot})
+			GlobalHooks.openUI:OpenUIPanel("UIPanelEquip", 2, {slot = slot, id = self.id})
 		end)
 	end
 end
 
 local function UpdateRoleInfo()
-	local playerData = CS.LuaCallCSUtils.GetPlayerData()
+	local playerData = CS.LuaCallCSUtils.GetPlayerData(self.id)
+	local nextPlayerData = GetNextPlayerData() 
+	self["txt_next"]:SetText(GetText(nextPlayerData.m_Name))
+	local prePlayerData = GetPrePlayerData() 
+	self["txt_pre"]:SetText(GetText(prePlayerData.m_Name))
 	--角色属性
 	self["img_avatar"]:SetSprite("Avatar/Avatar_"..playerData.m_ID)
 	self["txt_name"]:SetText(GetText(playerData.m_Name))
@@ -72,6 +89,10 @@ local UIName = {
 	"slot_4",
 	"slot_5",
 	"slot_6",
+	"btn_pre",
+	"btn_next",
+	"txt_pre",
+	"txt_next",
 }
 
 local function FindUI()
@@ -85,11 +106,28 @@ local function FindUI()
 	self["btn_back"]:AddListener(function()
         self:Close()
     end)
+	self["btn_pre"]:SetActive(CS.LuaCallCSUtils.GetRoleNum() > 1)
+	self["btn_next"]:SetActive(CS.LuaCallCSUtils.GetRoleNum() > 1)
+	self["btn_pre"]:AddListener(function()
+		self.id = self.id - 1
+		if self.id < 0 then
+			self.id = CS.LuaCallCSUtils.GetRoleNum() - 1
+		end
+        UpdateRoleInfo()
+    end)
+	self["btn_next"]:AddListener(function()
+		self.id = self.id + 1
+		if self.id == CS.LuaCallCSUtils.GetRoleNum() then
+			self.id = 0
+		end
+        UpdateRoleInfo()
+    end)
 	UpdateRoleInfo()
 end
 
 function self:InitUI(name, sort, params)
 	self.params = params
+	self.id = params.id
 	self.ui = CS.UIManager.m_instance:ShowOrCreatePanel(name, sort)
 	OnEnter()
 	FindUI()

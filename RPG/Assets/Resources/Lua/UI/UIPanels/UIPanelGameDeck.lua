@@ -6,7 +6,7 @@ local function UpdateRoleInfo()
 	self.playerList = CS.LuaCallCSUtils.GetPlayerList()
 	for i = 0, 3 do
 		if self.playerList[i] then
-			GlobalHooks.openUI:InitUIComponent("UIComponentRoleInfo", self["roleInfo"]:GetTransfrom(), 0, {data = self.playerList[i]})
+			GlobalHooks.openUI:InitUIComponent("UIComponentRoleInfo", self["roleInfo"]:GetTransfrom(), 0, {id = i, data = self.playerList[i]})
 		end
 	end
 end
@@ -24,16 +24,12 @@ end
 
 local function OnExit()
 	GlobalHooks.eventManager:RemoveListener("Common.UpdateGold", UpdateGold)
-	GlobalHooks.eventManager:RemoveListener("UI.UpdateRoleInfo", UpdateRoleInfo)
+	GlobalHooks.eventManager:RemoveListener("Role.UpdateRoleInfo", UpdateRoleInfo)
 end
 
 local function OnEnter()
     GlobalHooks.eventManager:AddListener("Common.UpdateGold", UpdateGold)
-	GlobalHooks.eventManager:AddListener("UI.UpdateRoleInfo", UpdateRoleInfo)
-end
-
-local function OnClickAvatar()
-	GlobalHooks.openUI:OpenUIPanel("UIPanelRoleInfo", 2)
+	GlobalHooks.eventManager:AddListener("Role.UpdateRoleInfo", UpdateRoleInfo)
 end
 
 local function OnClickQuit()

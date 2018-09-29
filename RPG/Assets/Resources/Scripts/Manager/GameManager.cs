@@ -47,7 +47,17 @@ public class GameManager : MonoBehaviour {
         return m_PlayerList;
     }
 
+    public RolePlayer GetPlayerData(int i)
+    {
+        return m_PlayerList[i % roleNum];
+    }
+
     int roleNum;
+
+    public int GetRoleNum()
+    {
+        return roleNum;
+    }
 
     void LoadRole()
     {
@@ -71,7 +81,7 @@ public class GameManager : MonoBehaviour {
         m_PlayerList[roleNum] = new RolePlayer();
         m_PlayerList[roleNum].SetRolePlayer(int.Parse(ID));
         roleNum += 1;
-        EventManager.Broadcast("UI.UpdateRoleInfo");
+        EventManager.Broadcast("Role.UpdateRoleInfo");
     }
 
     private int m_gold;

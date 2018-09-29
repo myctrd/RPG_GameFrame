@@ -20,12 +20,20 @@ public class GameEventManager : MonoBehaviour {
         Dictionary<string, object> data = CSCallLua.m_instance.GetDBData("event", eventID);
         string[] eventTypes = ((string)data["TYPE"]).Split(new char[1] { ';' });
         string[] events = ((string)data["EVENTS"]).Split(new char[1] { ';' });
+        string[] endEvents = ((string)data["ENDEVENTS"]).Split(new char[1] { ';' });
 
         if (eventTypes.Length > 0)
         {
             for (int i = 0; i < eventTypes.Length; i++)
             {
                 ExcuteEvent(int.Parse(eventTypes[i]), events[i], data);
+            }
+        }
+        for (int i = 0; i < endEvents.Length; i++)
+        {
+            if(endEvents[i] != "0")
+            {
+                PlayerPrefs.SetInt("RPGGame_Event_" + endEvents[i], 1);
             }
         }
 

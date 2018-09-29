@@ -31,6 +31,17 @@ public class LuaCallCSUtils {
     {
         return GameManager.m_instance.GetPlayerList();
     }
+
+    public static RolePlayer GetPlayerData(int i)
+    {
+        return GameManager.m_instance.GetPlayerData(i);
+    }
+
+    public static int GetRoleNum()
+    {
+        return GameManager.m_instance.GetRoleNum();
+    }
+
     public static void SetRolePlayer(string role)
     {
         GameManager.m_instance.SetRolePlayer(role);
@@ -41,9 +52,10 @@ public class LuaCallCSUtils {
         return GameManager.m_instance.GetPlayerGold();
     }
 
-    public static void SetPlayerEquip(string key, int slot, int id)
+    public static void SetPlayerEquip(int i, int slot, int id)
     {
-       
+        RolePlayer rolePlayer = GameManager.m_instance.GetPlayerData(i);
+        rolePlayer.SetPlayerEquip(slot, id);
     }
 
     public static void StartBattle(int id)

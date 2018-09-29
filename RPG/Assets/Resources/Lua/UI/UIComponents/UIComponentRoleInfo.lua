@@ -10,11 +10,21 @@ local UIName = {
 	"img_avatar",
 }
 
+local function OnClickAvatar()
+	GlobalHooks.openUI:OpenUIPanel("UIPanelRoleInfo", 2, {data = self.data})
+end
+
 local function FindUI()
 	for i = 1, #UIName do
 		self[UIName[i]] = self.ui:GetChild(UIName[i])
 	end
+	local id = self.id
+	self["img_avatar"]:AddListener(function()
+		GlobalHooks.openUI:OpenUIPanel("UIPanelRoleInfo", 2, {id = id})
+	end)
 end
+
+
 
 local function UpdateInfo()
 	self["img_avatar"]:SetSprite("Avatar/Avatar_"..self.data.m_ID)
@@ -26,6 +36,7 @@ end
 
 function self:InitUI(name, obj, sort, params)
 	self.params = params
+	self.id = params.id
 	self.data = params.data
 	self.ui = CS.UIManager.m_instance:LoadComponent(name, obj, sort)
 	FindUI()

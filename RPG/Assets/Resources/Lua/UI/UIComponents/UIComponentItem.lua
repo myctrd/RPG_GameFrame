@@ -31,7 +31,7 @@ local function UpdateItemInfo()
 	else
 		local data = GlobalHooks.dataReader:FindData("equip", self.params.id)
 		local slot = tonumber(data["SLOT"])
-		local playerData = CS.LuaCallCSUtils.GetPlayerData()
+		local playerData = CS.LuaCallCSUtils.GetPlayerData(GlobalHooks.openUI.roleInfo.id)
 		if self["img_equipped"] then
 			self["img_equipped"]:SetActive(playerData.equip[slot - 1] == tonumber(self.params.id))
 		end
