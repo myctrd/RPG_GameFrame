@@ -4,7 +4,7 @@ return {
 ["10002"] = {"10002","Map1ToMap2","2","2,9,7","0",},
 ["10003"] = {"10003","Map2ToMap1","2","1,8,5","0",},
 ["10004"] = {"10004","Story_1_1","0;3","InfoBoard,Story_1_1;RejecStory_1","0",},
-["10005"] = {"10005","Merchant","4","Merchant,MerchantIntro,LetMeLook.Byebye,10006.0","0",},
+["10005"] = {"10005","Merchant","4","Merchant,MerchantIntro,LetMeLook.SellSomething.Byebye,10006.10010.0","0",},
 ["10006"] = {"10006","OpenShop","5","UIPanelShop,UpdateShopItem,20001.20002.20003.20004.20005","0",},
 ["10007"] = {"10007","GetGold","6","99999999","0",},
 ["10008"] = {"10008","MoleTalk","4","Mole,NeedLock,HelpHim.DontHelp,10010.0","0",},

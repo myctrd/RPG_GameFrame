@@ -95,6 +95,7 @@ return {
 ["Merchant"] = {"Merchant","商人","Merchant",},
 ["MerchantIntro"] = {"MerchantIntro","我有一些很稀有的收藏，你要不要看看?","I have a collection of goods. Wanna have a look?",},
 ["LetMeLook"] = {"LetMeLook","让我看一眼咯。","Yes, let me have a look.",},
+["SellSomething"] = {"SellSomething","我想卖点什么。","I also love to sell things.",},
 ["Byebye"] = {"Byebye","再见。","Bye bye.",},
 ["DontBeGreedy"] = {"DontBeGreedy","做人不要那么贪婪。","Don't be so greedy.",},
 ["Chest"] = {"Chest","宝箱","Chest",},
