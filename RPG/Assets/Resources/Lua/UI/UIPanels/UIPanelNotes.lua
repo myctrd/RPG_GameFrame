@@ -16,10 +16,9 @@ local function UpdateNotes()
 		self["check_"..tostring(i)]:SetActive(i == self.selectedIndex)
 	end
 	local notes = GlobalHooks.event:GetNotes(self.selectedIndex)
-	local playerData = CS.LuaCallCSUtils.GetPlayerData()
 	for k, v in pairs(notes)do
 		local data = GlobalHooks.dataReader:FindData("notes", k)
-		if CS.LuaCallCSUtils.PlayerPrefsHasKey(playerData.m_Name.."_Event_"..data["EVENT"]) == false then
+		if CS.LuaCallCSUtils.PlayerPrefsHasKey("RPGGame_Event_"..data["EVENT"]) == false then
 			GlobalHooks.openUI:InitUIComponent("UIComponentNotes", self["content_bag"]:GetTransfrom(), 0, {id = k})
 		end
 	end

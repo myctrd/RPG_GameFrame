@@ -1,9 +1,11 @@
 local self = {}
 self.__index = self
 
+
 local function OnClickPlay()
+	GlobalHooks.openUI:OpenUIPanel("UIPanelGameDeck", 1)
 	self.ui:Close()
-	GlobalHooks.openUI:OpenUIPanel("UIPanelRoleSelect")
+	CS.LuaCallCSUtils.LoadGameScene()
 end
 
 local function OnClickSettings()

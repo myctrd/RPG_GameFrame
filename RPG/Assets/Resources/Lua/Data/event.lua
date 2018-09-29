@@ -11,6 +11,7 @@ return {
 ["10009"] = {"10009","MoleNotes","7","10001",},
 ["10010"] = {"10010","OpenBag","8","",},
 ["10011"] = {"10011","GetSword","0;1","Mole,MoleThanks;equip,10101,1",},
-["10012"] = {"10012","FrogTalk","4","Frog,WannaFight,DoFight.DontFight,10013.0",},
-["10013"] = {"10013","FightInvoker","9","20001",},
+["10012"] = {"10012","FrogTalk","4","Frog,WannaFight,DoFight.DontFight,0.0",},
+["10013"] = {"10013","FightFrog","9","20001",},
+["10014"] = {"10014","EchoJoin","10","10002",},
 }

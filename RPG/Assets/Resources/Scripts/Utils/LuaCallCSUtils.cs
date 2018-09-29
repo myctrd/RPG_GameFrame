@@ -26,20 +26,14 @@ public class LuaCallCSUtils {
         DataManager.m_instance.DeleteAll();
         LocalizationManager.m_instance.InitLanguage();
     }
-
-    public static int[] GetRoleAvailable()
+    
+    public static RolePlayer[] GetPlayerList()
     {
-        return GameManager.m_instance.GetRoleAvailable();
+        return GameManager.m_instance.GetPlayerList();
     }
-
-    public static void SetRolePlayer(int role)
+    public static void SetRolePlayer(string role)
     {
         GameManager.m_instance.SetRolePlayer(role);
-    }
-
-    public static RoleBase GetPlayerData()
-    {
-        return GameManager.m_instance.GetPlayerData();
     }
 
     public static int GetPlayerGold()
@@ -47,9 +41,9 @@ public class LuaCallCSUtils {
         return GameManager.m_instance.GetPlayerGold();
     }
 
-    public static void SetPlayerEquip(int slot, int id)
+    public static void SetPlayerEquip(string key, int slot, int id)
     {
-        GameManager.m_instance.SetPlayerEquip(slot, id);
+       
     }
 
     public static void StartBattle(int id)
@@ -133,7 +127,7 @@ public class LuaCallCSUtils {
 
     public static void ActivateEvent(string eventID)
     {
-        GameManager.m_instance.GetPlayerData().ActivateEvent(eventID);
+        GameEventManager.m_instance.ActivateEvent(eventID);
     }
 
     public static void AddGold(int value)
@@ -158,8 +152,8 @@ public class LuaCallCSUtils {
                 Dictionary<string, object> p = new Dictionary<string, object>();
                 p.Add("id", id);
                 EventManager.Broadcast("DataManager.ConsumeTaskItem", p);
-                PlayerPrefs.SetInt(GameManager.m_instance.GetPlayerData().m_Name + "_Event_" + (string)data["EVENT"], 1);
-                GameManager.m_instance.GetPlayerData().ActivateEvent((string)data["REWARDEVENT"]);
+                PlayerPrefs.SetInt("RPGGame_Event_" + (string)data["EVENT"], 1);
+                GameEventManager.m_instance.ActivateEvent((string)data["REWARDEVENT"]);
             }
             else
             {

@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour {
 
 	public static GameManager m_instance;
-
-    private int [] roleAvailable = new int[4];
 
     void Awake()
 	{
@@ -18,48 +17,77 @@ public class GameManager : MonoBehaviour {
         LoadScene("Void");
     }
 
+    void Start()
+    {
+        roleNum = 1;
+        LoadRole();
+    }
+
     public void LoadScene(string scene)
     {
         SceneManager.LoadScene(scene);
     }
-
+    
     public void LoadGameScene()
     {
         LoadScene("Game");
         int mapID = 1;
-        if (PlayerPrefs.HasKey(GetPlayerData().m_Name + "_CurrentMap"))
+        if (PlayerPrefs.HasKey("RPGGame_CurrentMap"))
         {
-            mapID = PlayerPrefs.GetInt(GetPlayerData().m_Name + "_CurrentMap");
+            mapID = PlayerPrefs.GetInt("RPGGame_CurrentMap");
         }
         LoadMap(mapID);
+        LoadGold();
     }
 
-    void Start()
+    private RolePlayer [] m_PlayerList;
+
+    public RolePlayer[] GetPlayerList()
     {
-        SetRoleAvailable(0, 1);
-        SetRoleAvailable(1, 0);
-        SetRoleAvailable(2, 0);
-        SetRoleAvailable(3, 0);
+        return m_PlayerList;
     }
 
-    public void SetRoleAvailable(int i, int v)
+    int roleNum;
+
+    void LoadRole()
     {
-        roleAvailable[i] = v;
+        m_PlayerList = new RolePlayer[4]; 
+        m_PlayerList[0] = new RolePlayer();
+        m_PlayerList[0].SetRolePlayer(10001);
+        
+        for(int i = 1; i < 4; i ++)
+        {
+            if(PlayerPrefs.HasKey("RPGGame_Role_" + (10001 + i)))
+            {
+                m_PlayerList[roleNum] = new RolePlayer();
+                m_PlayerList[roleNum].SetRolePlayer(10001 + i);
+                roleNum += 1;
+            }
+        }
     }
 
-    public int[] GetRoleAvailable()
+    public void GetNewRole(string ID)
     {
-        return roleAvailable;
+        m_PlayerList[roleNum] = new RolePlayer();
+        m_PlayerList[roleNum].SetRolePlayer(int.Parse(ID));
+        roleNum += 1;
+        EventManager.Broadcast("UI.UpdateRoleInfo");
     }
 
-    private RolePlayer m_Player;
+    private int m_gold;
+
+    void LoadGold()
+    {
+        m_gold = PlayerPrefs.GetInt("RPGGame_Gold");
+    }
+    
     private RoleEnemy m_Enemy;
 
     public int CheckEventState(string eventID)  //0.未触发 1.成功 2.失败
     {
-        if(PlayerPrefs.HasKey(GetPlayerData().m_Name + "_Event_" + eventID))
+        if(PlayerPrefs.HasKey("RPGGame_Event_" + eventID))
         {
-            return PlayerPrefs.GetInt(GetPlayerData().m_Name + "_Event_" + eventID);
+            return PlayerPrefs.GetInt("RPGGame_Event_" + eventID);
         }
         else
         {
@@ -69,17 +97,15 @@ public class GameManager : MonoBehaviour {
 
     public void AddGold(int value)
     {
-        m_Player.AddGold(value);
+        m_gold += value;
+        PlayerPrefs.SetInt("RPGGame_Gold", m_gold);
+        EventManager.Broadcast("Common.UpdateGold");
     }
-
+    
     public int GetPlayerGold()
     {
-        return m_Player.GetGold();
-    }
-
-    public RolePlayer GetPlayerData()
-    {
-        return m_Player;
+        m_gold = PlayerPrefs.GetInt("RPGGame_Gold");
+        return m_gold;
     }
 
     public void RemoveEnemyData()
@@ -101,19 +127,10 @@ public class GameManager : MonoBehaviour {
         return m_Enemy;
     }
 
-    public void SetRolePlayer(int role)
+    public void SetRolePlayer(string ID)
     {
-        if(m_Player == null)
-        {
-            m_Player = gameObject.AddComponent<RolePlayer>();
-        }
-        m_Player.SetRolePlayer(role);
     }
-
-    public void SetPlayerEquip(int slot, int id)
-    {
-        m_Player.SetPlayerEquip(slot, id);
-    }
+    
 
     private int mapID = 0;
 

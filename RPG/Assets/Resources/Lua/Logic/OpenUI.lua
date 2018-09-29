@@ -3,7 +3,6 @@ self.__index = self
 
 self.menu = require 'UI.UIPanels.UIPanelMenu'
 self.settings = require 'UI.UIPanels.UIPanelSettings'
-self.roleSelect = require 'UI.UIPanels.UIPanelRoleSelect'
 self.gameDeck = require 'UI.UIPanels.UIPanelGameDeck'
 self.roleInfo = require 'UI.UIPanels.UIPanelRoleInfo'
 self.bag = require 'UI.UIPanels.UIPanelBag'
@@ -23,6 +22,7 @@ self.battleTips = require 'UI.UIComponents.UIComponentBattleTips'
 self.option = require 'UI.UIComponents.UIComponentOption'
 self.shopItem = require 'UI.UIComponents.UIComponentShopItem'
 self.notesCom = require 'UI.UIComponents.UIComponentNotes'
+self.roleInfoCom = require 'UI.UIComponents.UIComponentRoleInfo'
 
 function self:InitUIComponent(name, obj, sort, params)
 	if name == nil then
@@ -44,6 +44,8 @@ function self:InitUIComponent(name, obj, sort, params)
 		self.itemInfo:InitUI(name, obj, sort, params)
 	elseif name == "UIComponentNotes" then
 		self.notesCom:InitUI(name, obj, sort, params)
+	elseif name == "UIComponentRoleInfo" then
+		self.roleInfoCom:InitUI(name, obj, sort, params)
 	end
 end
 
@@ -59,8 +61,6 @@ function self:OpenUIPanel(name, sort, params)
 		self.menu:InitUI(name, sort, params)
 	elseif name == "UIPanelSettings" then
 		self.settings:InitUI(name, sort, params)
-	elseif name == "UIPanelRoleSelect" then
-		self.roleSelect:InitUI(name, sort, params)
 	elseif name == "UIPanelGameDeck" then
 		self.gameDeck:InitUI(name, sort, params)
 	elseif name == "UIPanelRoleInfo" then

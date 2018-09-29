@@ -32,7 +32,7 @@ public class BattleManager : MonoBehaviour {
     // Use this for initialization
     public void StartBattle (int id)
     {
-        player = GameManager.m_instance.GetPlayerData();
+        //player = GameManager.m_instance.GetPlayerData();
         enemy = GameManager.m_instance.GetEnemyData(id);
         EventManager.Broadcast("Battle.UpdateBattleInfo");
         turnIndex = 0;

@@ -1,6 +1,16 @@
 local self = {}
 self.__index = self
 
+local function UpdateRoleInfo()
+	self["roleInfo"]:ClearChild()
+	self.playerList = CS.LuaCallCSUtils.GetPlayerList()
+	for i = 0, 3 do
+		if self.playerList[i] then
+			GlobalHooks.openUI:InitUIComponent("UIComponentRoleInfo", self["roleInfo"]:GetTransfrom(), 0, {data = self.playerList[i]})
+		end
+	end
+end
+
 local function UpdateGold()
 	if self.gold ~= nil then
 		local value = CS.LuaCallCSUtils.GetPlayerGold() - self.gold
@@ -14,10 +24,12 @@ end
 
 local function OnExit()
 	GlobalHooks.eventManager:RemoveListener("Common.UpdateGold", UpdateGold)
+	GlobalHooks.eventManager:RemoveListener("UI.UpdateRoleInfo", UpdateRoleInfo)
 end
 
 local function OnEnter()
     GlobalHooks.eventManager:AddListener("Common.UpdateGold", UpdateGold)
+	GlobalHooks.eventManager:AddListener("UI.UpdateRoleInfo", UpdateRoleInfo)
 end
 
 local function OnClickAvatar()
@@ -49,26 +61,24 @@ local function OnClickBattle()
 end
 
 local UIName = {
-	"img_avatar",
 	"btn_quit",
 	"btn_bag",
 	"btn_story",
 	"btn_notes",
 	"txt_gold",
+	"roleInfo",
 }
 
 local function FindUI()
 	for i = 1, #UIName do
 		self[UIName[i]] = self.ui:GetChild(UIName[i])
 	end
-	local playerData = CS.LuaCallCSUtils.GetPlayerData()
-	self["img_avatar"]:SetSprite("Avatar/Avatar_"..playerData.m_ID)
-	self["img_avatar"]:AddListener(OnClickAvatar)
 	self["btn_quit"]:AddListener(OnClickQuit)
 	self["btn_bag"]:AddListener(OnClickBag)
 	self["btn_story"]:AddListener(OnClickStory)
 	self["btn_notes"]:AddListener(OnClickNotes)
 	UpdateGold()
+	UpdateRoleInfo()
 end
 
 function self:InitUI(name, sort, params)

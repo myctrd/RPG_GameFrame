@@ -23,8 +23,8 @@ public class UIRolePlayer : UIRoleBase
         m_dir = Direction.None;
         animator.Play("idle");
         t_interaction.SetActive(next_tile != null && next_tile.npc != 0);
-        PlayerPrefs.SetInt(GameManager.m_instance.GetPlayerData().m_Name + "_CurrentCol", col);
-        PlayerPrefs.SetInt(GameManager.m_instance.GetPlayerData().m_Name + "_CurrentLine", line);
+        PlayerPrefs.SetInt("RPGGame_CurrentCol", col);
+        PlayerPrefs.SetInt("RPGGame_CurrentLine", line);
     }
 
     void StartMove()

@@ -14,7 +14,6 @@ public class UIRoleBase : MonoBehaviour {
     public virtual void SetUIRole(int id, int line, int col, float pos_x, float pos_y)
     {
         gameObject.name = "role_" + id;
-        roleID = id;
         this.line = line;
         this.col = col;
         this.pos_x = pos_x;

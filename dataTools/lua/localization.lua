@@ -33,7 +33,7 @@ return {
 ["Desc_DriftingBottle"] = {"Desc_DriftingBottle","漂流瓶","Drifting bottle",},
 ["Desc_Amber"] = {"Desc_Amber","琥珀石","Amber",},
 ["Desc_SilverLock"] = {"Desc_SilverLock","银锁","Silver lock",},
-["Desc_HPPotion"] = {"Desc_HPPotion","血瓶","HP potion",},
+["Desc_HPPotion"] = {"Desc_HPPotion","回复50血量","Regenerate 50 HP",},
 ["Desc_MPPotion"] = {"Desc_MPPotion","魔法药剂","MP potion",},
 ["Desc_Sword_1_1"] = {"Desc_Sword_1_1","长剑","Sword",},
 ["Desc_Helmet_1_1"] = {"Desc_Helmet_1_1","头盔","Helmet",},
@@ -132,4 +132,9 @@ return {
 ["Confirm"] = {"Confirm","确认","Confirm",},
 ["Victory"] = {"Victory","胜利！","Victory!",},
 ["Defeat"] = {"Defeat","失败！","Defeat!",},
+["Fox"] = {"Fox","狐狸","Fox",},
+["EchoIsMyFriend"] = {"EchoIsMyFriend","艾可是我最好的朋友。","Echo is my best friend.",},
+["10002_JoinTeam"] = {"10002_JoinTeam","艾可加入了队伍","Echo joined your team",},
+["10003_JoinTeam"] = {"10003_JoinTeam","丁满加入了队伍","Timon joined your team",},
+["10004_JoinTeam"] = {"10004_JoinTeam","歌乐儿加入了队伍","Chloe joined your team",},
 }

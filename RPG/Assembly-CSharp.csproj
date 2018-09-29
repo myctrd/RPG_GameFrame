@@ -57,6 +57,7 @@
      <Compile Include="Assets\Resources\Scripts\Localization\LocalizationText.cs" />
      <Compile Include="Assets\Resources\Scripts\Manager\BattleManager.cs" />
      <Compile Include="Assets\Resources\Scripts\Manager\DataManager.cs" />
+     <Compile Include="Assets\Resources\Scripts\Manager\GameEventManager.cs" />
      <Compile Include="Assets\Resources\Scripts\Manager\GameManager.cs" />
      <Compile Include="Assets\Resources\Scripts\Manager\GameSceneManager.cs" />
      <Compile Include="Assets\Resources\Scripts\Manager\LuaScriptManager.cs" />

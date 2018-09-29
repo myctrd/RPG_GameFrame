@@ -83,7 +83,7 @@ public class GameSceneManager : MonoBehaviour {
                     {
                         if (GameManager.m_instance.CheckEventState((string)data_interactiveNPC["EVENT"]) == 0 || (string)data_interactiveNPC["CANREUSE"] == "1")  //NPC事件未触发过或事件可重复触发
                         {
-                            if((string)data_interactiveNPC["PREEVENT"] != "0" && PlayerPrefs.HasKey(GameManager.m_instance.GetPlayerData().m_Name + "_Event_" + (string)data_interactiveNPC["PREEVENT"]) == false)  //前置事件未触发
+                            if((string)data_interactiveNPC["PREEVENT"] != "0" && PlayerPrefs.HasKey("RPGGame_Event_" + (string)data_interactiveNPC["PREEVENT"]) == false)  //前置事件未触发
                             {
                                 if ((string)data_interactiveNPC["DIALOG"] != "")
                                 {
@@ -93,10 +93,10 @@ public class GameSceneManager : MonoBehaviour {
                                 }
                                 return;
                             }
-                            GameManager.m_instance.GetPlayerData().ActivateEvent((string)data_interactiveNPC["EVENT"]);
+                            GameEventManager.m_instance.ActivateEvent((string)data_interactiveNPC["EVENT"]);
                             if ((string)data_interactiveNPC["MARKNOW"] == "1")  //立刻标记触发过的事件（有的事件可以回头继续触发）
                             {
-                                PlayerPrefs.SetInt(GameManager.m_instance.GetPlayerData().m_Name + "_Event_" + (string)data_interactiveNPC["EVENT"], 1);
+                                PlayerPrefs.SetInt("RPGGame_Event_" + (string)data_interactiveNPC["EVENT"], 1);
                             }
                         }
                         else  //NPC事件已触发过且不可重复触发弹出固定的对话
@@ -164,7 +164,7 @@ public class GameSceneManager : MonoBehaviour {
                 GameObject role = Instantiate<GameObject>(prefab, roleRoot, false);
                 rolePlayer = role.GetComponent<UIRolePlayer>();
                 t_rolePlayer = rolePlayer.transform;
-                rolePlayer.SetUIRole(int.Parse(GameManager.m_instance.GetPlayerData().m_ID), line, col, (col - ((float)mapCol - 1) / 2) * tileWidth, (((float)mapLine - 1) / 2 - line) * tileWidth);
+                rolePlayer.SetUIRole(10001, line, col, (col - ((float)mapCol - 1) / 2) * tileWidth, (((float)mapLine - 1) / 2 - line) * tileWidth);
                 t_rolePlayer.localPosition = new Vector3((col - ((float)mapCol - 1) / 2) * tileWidth, (((float)mapLine - 1) / 2 - line) * tileWidth, 0);
                 t_camera.localPosition = t_rolePlayer.localPosition;
             }
@@ -209,7 +209,7 @@ public class GameSceneManager : MonoBehaviour {
         ClearMap();
         if (tileRoot != null)
         {
-            PlayerPrefs.SetInt(GameManager.m_instance.GetPlayerData().m_Name + "_CurrentMap", id);
+            PlayerPrefs.SetInt("RPGGame_CurrentMap", id);
             if (File.Exists(Application.dataPath + "/Resources/Xmls/MapData/map_" + id.ToString() + ".XML"))
             {
                 string filepath = Application.dataPath + @"/Resources/Xmls/MapData/map_" + id.ToString() + ".XML";
@@ -271,10 +271,10 @@ public class GameSceneManager : MonoBehaviour {
                         tile.name = tileLine + "_" + tileCol;
                     }
                 }
-                if(PlayerPrefs.HasKey(GameManager.m_instance.GetPlayerData().m_Name + "_CurrentCol"))
+                if(PlayerPrefs.HasKey("RPGGame_CurrentCol"))
                 {
-                    int currentCol = PlayerPrefs.GetInt(GameManager.m_instance.GetPlayerData().m_Name + "_CurrentCol");
-                    int currentLine = PlayerPrefs.GetInt(GameManager.m_instance.GetPlayerData().m_Name + "_CurrentLine");
+                    int currentCol = PlayerPrefs.GetInt("RPGGame_CurrentCol");
+                    int currentLine = PlayerPrefs.GetInt("RPGGame_CurrentLine");
                     LoadRolePlayer(currentLine, currentCol);
                 }
                 else
