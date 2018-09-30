@@ -112,11 +112,14 @@ function self:AddItem(id, count)
 		end
 		CS.LuaCallCSUtils.UpdateItem(id, tostring(self.itemBag_2[data["ID"]]))
 	end
+	GlobalHooks.eventManager:Broadcast("Item.UpdateItemCount", {})
 end
 
 function self:GetNewItem(id, count)
 	local data = GlobalHooks.dataReader:FindData("item", id)
-	GlobalHooks.uiUitls:ShowFloatingMsg(GetText(data["NAME"]).." + "..count)
+	if count > 0 then
+		GlobalHooks.uiUitls:ShowFloatingMsg(GetText(data["NAME"]).." + "..count)
+	end
 	self:AddItem(id, count);
 end
 

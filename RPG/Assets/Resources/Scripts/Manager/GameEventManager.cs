@@ -120,8 +120,11 @@ public class GameEventManager : MonoBehaviour {
                 }
 
                 break;
-            case 8:  //打开背包
+            case 8:  //打开背包展示物品
                 LuaScriptManager.m_instance.OpenUIPanel("UIPanelBag");
+                p.Clear();
+                p.Add("bagType", 1);
+                EventManager.Broadcast("UI.SetBagType", p);
                 break;
             case 9:  //战斗
                 p.Clear();
@@ -134,6 +137,12 @@ public class GameEventManager : MonoBehaviour {
                 p.Clear();
                 p.Add("txt", m_event + "_JoinTeam");
                 EventManager.Broadcast("Common.FloatingMsg", p);
+                break;
+            case 11:  //打开背包出售物品
+                LuaScriptManager.m_instance.OpenUIPanel("UIPanelBag");
+                p.Clear();
+                p.Add("bagType", 2);
+                EventManager.Broadcast("UI.SetBagType", p);
                 break;
             default:
                 break;

@@ -19,7 +19,6 @@ local function OnSelectCol(col)
 	UpdateItem()
 end
 
-
 local function OnExit()
 	GlobalHooks.eventManager:RemoveListener("Item.UpdateItemCount", UpdateItem)
 end
@@ -56,9 +55,14 @@ end
 
 function self:InitUI(name, sort, params)
 	self.params = params
+	self.bagType = 0
 	self.ui = CS.UIManager.m_instance:ShowOrCreatePanel(name, sort)
 	OnEnter()
 	FindUI()
+end
+
+function self:SetBagType(b_type)
+	self.bagType = b_type
 end
 
 return self

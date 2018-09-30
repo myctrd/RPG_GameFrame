@@ -140,4 +140,5 @@ return {
 ["10004_JoinTeam"] = {"10004_JoinTeam","歌乐儿加入了队伍","Chloe joined your team",},
 ["YouWantChloe"] = {"YouWantChloe","歌乐儿是我最好的朋友，你能帮我照顾她吗?","Chloe is my best friend.  Could you take care of her?",},
 ["IWantChloe"] = {"IWantChloe","我会像你爱她一样爱她。","I would love her like you do.",},
+["Sell"] = {"Sell","出售","Sell",},
 }

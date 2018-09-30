@@ -25,7 +25,7 @@ local function UpdateItemInfo()
 		if self["frame"] then
 			self["frame"]:SetSprite("Common/Frame_"..data["QUALITY"])
 			self["frame"]:AddListener(function()
-				GlobalHooks.openUI:InitUIComponent("UIComponentItemInfo", nil, 2, {index = 1, itemData = data})
+				GlobalHooks.openUI:InitUIComponent("UIComponentItemInfo", nil, 2, {index = 1, itemData = data, amount = self.params.amount})
 			end)
 		end
 	else

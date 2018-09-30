@@ -42,6 +42,10 @@ function self:Init()
 		GlobalHooks.openUI:InitUIComponent("UIComponentBattleTips", nil, 4, {txt = params.txt})
 	end)
 	
+	GlobalHooks.eventManager:AddListener("UI.SetBagType", function(name, params)
+		GlobalHooks.openUI.bag:SetBagType(params.bagType)
+	end)
+	
 	GlobalHooks.eventManager:AddListener("UI.UpdateShopItem", function(name, params)
 		GlobalHooks.openUI.shop:UpdateShopItem(params.data)
 	end)
