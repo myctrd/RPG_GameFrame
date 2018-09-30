@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class UIMarker : UIBase
 {
+    public int status = 0;  //用于临时记录状态
+
     public void SetButtonInteractable(bool state)
     {
         if (transform.GetComponent<Button>() != null)
@@ -39,12 +41,21 @@ public class UIMarker : UIBase
         }
     }
 
-    public void SetTextColor(int r, int b, int g)
+    public void SetTextColor(float r, float g, float b)
     {
         if (transform.GetComponent<Text>() != null)
         {
             var text = transform.GetComponent<Text>();
             text.color = new Color(r, g, b);
+        }
+    }
+
+    public void SetImageColor(float r, float g, float b)
+    {
+        if (transform.GetComponent<Image>() != null)
+        {
+            var image = transform.GetComponent<Image>();
+            image.color = new Color(r, g, b);
         }
     }
 

@@ -76,6 +76,7 @@
      <Compile Include="Assets\Resources\Scripts\Tools\XMLTools.cs" />
      <Compile Include="Assets\Resources\Scripts\UIBase\UIBase.cs" />
      <Compile Include="Assets\Resources\Scripts\UIBase\UIComponentBase.cs" />
+     <Compile Include="Assets\Resources\Scripts\UIBase\UIHover.cs" />
      <Compile Include="Assets\Resources\Scripts\UIBase\UIMarker.cs" />
      <Compile Include="Assets\Resources\Scripts\UIBase\UIPanelBase.cs" />
      <Compile Include="Assets\Resources\Scripts\UIRole\UIRoleBase.cs" />

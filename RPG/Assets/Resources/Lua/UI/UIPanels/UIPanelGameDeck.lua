@@ -51,6 +51,10 @@ local function OnClickNotes()
 	GlobalHooks.openUI:OpenUIPanel("UIPanelNotes", 2)
 end
 
+local function OnClickTalent()
+	GlobalHooks.openUI:OpenUIPanel("UIPanelTalent", 2)
+end
+
 local function OnClickBattle()
 	self.ui:Close()
 	GlobalHooks.openUI:OpenUIPanel("UIPanelBattle", 1, {enemyID = 20001})
@@ -61,6 +65,7 @@ local UIName = {
 	"btn_bag",
 	"btn_story",
 	"btn_notes",
+	"btn_talent",
 	"txt_gold",
 	"roleInfo",
 }
@@ -73,6 +78,7 @@ local function FindUI()
 	self["btn_bag"]:AddListener(OnClickBag)
 	self["btn_story"]:AddListener(OnClickStory)
 	self["btn_notes"]:AddListener(OnClickNotes)
+	self["btn_talent"]:AddListener(OnClickTalent)
 	UpdateGold()
 	UpdateRoleInfo()
 end

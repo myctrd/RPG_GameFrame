@@ -141,4 +141,7 @@ return {
 ["YouWantChloe"] = {"YouWantChloe","歌乐儿是我最好的朋友，你能帮我照顾她吗?","Chloe is my best friend.  Could you take care of her?",},
 ["IWantChloe"] = {"IWantChloe","我会像你爱她一样爱她。","I would love her like you do.",},
 ["Sell"] = {"Sell","出售","Sell",},
+["Ultimate"] = {"Ultimate","终极","Ultimate",},
+["TalentPoints"] = {"TalentPoints","天赋点:","Talent points:",},
+["NoMoreTalentPoints"] = {"NoMoreTalentPoints","天赋点不足","No more talent points",},
 }

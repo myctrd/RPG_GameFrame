@@ -13,6 +13,7 @@ self.story = require 'UI.UIPanels.UIPanelStory'
 self.shop = require 'UI.UIPanels.UIPanelShop'
 self.notes = require 'UI.UIPanels.UIPanelNotes'
 self.battleResult = require 'UI.UIPanels.UIPanelBattleResult'
+self.talent = require 'UI.UIPanels.UIPanelTalent'
 
 self.itemInfo = require 'UI.UIComponents.UIComponentItemInfo'
 self.floatingMsg = require 'UI.UIComponents.UIComponentFloatingMsg'
@@ -81,6 +82,8 @@ function self:OpenUIPanel(name, sort, params)
 		self.notes:InitUI(name, sort, params)
 	elseif name == "UIPanelShop" then
 		self.shop:InitUI(name, sort, params)
+	elseif name == "UIPanelTalent" then
+		self.talent:InitUI(name, sort, params)
 	end
 end
 
