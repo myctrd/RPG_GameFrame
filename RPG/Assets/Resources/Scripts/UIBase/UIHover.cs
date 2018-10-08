@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
-
+using System.Collections.Generic;
 public class UIHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
 
@@ -8,7 +8,9 @@ public class UIHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        EventManager.Broadcast("Hover." + infoEnter);
+        Dictionary<string, object> p = new Dictionary<string, object>();
+        p.Add("subInfo", gameObject.name);
+        EventManager.Broadcast("Hover." + infoEnter, p);
     }
 
     public void OnPointerExit(PointerEventData eventData)

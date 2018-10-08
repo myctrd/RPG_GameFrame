@@ -17,6 +17,10 @@ end
 
 function self:Init()
 
+	GlobalHooks.eventManager:AddListener("Hover.TalentInfo", function(name, params)
+		GlobalHooks.openUI.talent:ShowTalentInfo(params.subInfo)
+	end)
+
 	GlobalHooks.eventManager:AddListener("Common.FloatingMsg", function(name, params)
 		self:ShowFloatingMsg(GetText(params.txt))
 	end)

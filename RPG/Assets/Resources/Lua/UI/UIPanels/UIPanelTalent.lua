@@ -8,6 +8,8 @@ local UIName = {
 	"part_3",
 	"txt_points",
 	"img_frame",
+	"txt_title",
+	"txt_content",
 }
 
 local function UpdatePoints()
@@ -57,8 +59,11 @@ local function ClickTalent(i, j)
 	end
 end
 
-local function ShowTalentInfo()
+function self:ShowTalentInfo(id)
 	self["img_frame"]:SetActive(true)
+	local data = GlobalHooks.dataReader:FindData(self.file, id)
+	self["txt_title"]:SetText(GetText(data["NAME"]))
+	self["txt_content"]:SetText(GetText(data["DESC"]))
 end
 
 local function HideTalentInfo()
@@ -66,14 +71,14 @@ local function HideTalentInfo()
 end
 
 local function OnExit()
-	GlobalHooks.eventManager:RemoveListener("Hover.TalentInfo", ShowTalentInfo)
 	GlobalHooks.eventManager:RemoveListener("Hover.HideTalentInfo", HideTalentInfo)
 end
 
 local function OnEnter()
-	GlobalHooks.eventManager:AddListener("Hover.TalentInfo", ShowTalentInfo)
 	GlobalHooks.eventManager:AddListener("Hover.HideTalentInfo", HideTalentInfo)
 end
+
+
 
 local function FindUI()
 	for i = 1, #UIName do

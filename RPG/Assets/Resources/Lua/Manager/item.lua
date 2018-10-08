@@ -117,7 +117,7 @@ end
 
 function self:GetNewItem(id, count)
 	local data = GlobalHooks.dataReader:FindData("item", id)
-	if count > 0 then
+	if tonumber(count) > 0 then
 		GlobalHooks.uiUitls:ShowFloatingMsg(GetText(data["NAME"]).." + "..count)
 	end
 	self:AddItem(id, count);
