@@ -1,23 +1,2 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<Root>
-  <Node Type="string">
-    <ID>10101</ID>
-    <COUNT>0</COUNT>
-    <REFINED>0</REFINED>
-  </Node>
-  <Node Type="string">
-    <ID>10102</ID>
-    <COUNT>1</COUNT>
-    <REFINED>0</REFINED>
-  </Node>
-  <Node Type="string">
-    <ID>40201</ID>
-    <COUNT>0</COUNT>
-    <REFINED>0</REFINED>
-  </Node>
-  <Node Type="string">
-    <ID>40202</ID>
-    <COUNT>1</COUNT>
-    <REFINED>0</REFINED>
-  </Node>
-</Root>
+<Root />

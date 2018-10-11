@@ -261,4 +261,5 @@ return {
 ["Tip_NotEnoughMaterials"] = {"Tip_NotEnoughMaterials","材料不足","Not enough materials",},
 ["Tip_ForgeSuccess"] = {"Tip_ForgeSuccess","锻造成功","Forge success",},
 ["Tip_ForgeFailed"] = {"Tip_ForgeFailed","锻造失败","Forge failed",},
+["EquipSupQuality"] = {"EquipSupQuality","装备已达最高品质","Equipment of supreme quality",},
 }

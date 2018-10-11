@@ -695,6 +695,7 @@ GameObject:
   - component: {fileID: 222230010869347848}
   - component: {fileID: 114385379523308224}
   - component: {fileID: 114113221437282382}
+  - component: {fileID: 114865879632728156}
   m_Layer: 5
   m_Name: txt_max
   m_TagString: Untagged
@@ -2653,6 +2654,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114865879632728156
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1676039564932832}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 203e6d937cc4f31458709c852ba20579, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: EquipSupQuality
 --- !u!114 &114867268298960340
 MonoBehaviour:
   m_ObjectHideFlags: 1
