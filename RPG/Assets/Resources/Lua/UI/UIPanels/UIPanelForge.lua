@@ -19,6 +19,7 @@ local UIName = {
 	"txt_refined",
 	"slider_refined",
 	"txt_max",
+	"list",
 }
 
 local function UpdateGold()
@@ -77,7 +78,7 @@ end
 
 function self:LoadEquip(id)
 	self.equipId = id
-	self["btn_closeList"]:SetActive(false)
+	self["list"]:SetActive(false)
 	self["txt_max"]:SetActive(false)
 	self["info_cost"]:SetActive(true)
 	local data = GlobalHooks.dataReader:FindData("equip", id)
@@ -126,7 +127,7 @@ function self:LoadEquip(id)
 end
 
 local function OpenEquipList()
-	self["btn_closeList"]:SetActive(true)
+	self["list"]:SetActive(true)
 	self["content_bag"]:ClearChild()
 	local equipBag = GlobalHooks.item:GetAllEquip()
 	for k, v in pairs(equipBag)do
@@ -151,7 +152,7 @@ local function FindUI()
         self.ui:Close()
     end)
 	self["btn_closeList"]:AddListener(function()
-		self["btn_closeList"]:SetActive(false)
+		self["list"]:SetActive(false)
     end)
 	UpdateGold()
 end
