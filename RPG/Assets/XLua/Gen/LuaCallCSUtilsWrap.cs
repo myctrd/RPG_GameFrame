@@ -548,8 +548,9 @@ namespace XLua.CSObjectWrap
                 {
                     string _id = LuaAPI.lua_tostring(L, 1);
                     string _count = LuaAPI.lua_tostring(L, 2);
+                    string _refined = LuaAPI.lua_tostring(L, 3);
                     
-                    LuaCallCSUtils.AddEquip( _id, _count );
+                    LuaCallCSUtils.AddEquip( _id, _count, _refined );
                     
                     
                     

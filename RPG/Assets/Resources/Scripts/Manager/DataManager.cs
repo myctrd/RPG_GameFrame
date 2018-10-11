@@ -81,9 +81,13 @@ public class DataManager : MonoBehaviour {
         XmlNode root = xml_equipData.SelectSingleNode("Root");
         foreach (XmlElement node in root)
         {
-            Dictionary<string, object> p = new Dictionary<string, object>();
-            p.Add("id", node.ChildNodes[0].InnerText);
-            EventManager.Broadcast("DataManager.AddEquip", p);
+            if(int.Parse(node.ChildNodes[1].InnerText) > 0)
+            {
+                Dictionary<string, object> p = new Dictionary<string, object>();
+                p.Add("id", node.ChildNodes[0].InnerText);
+                p.Add("refined", node.ChildNodes[2].InnerText);
+                EventManager.Broadcast("DataManager.AddEquip", p);
+            }
         }
     }
 
@@ -110,9 +114,9 @@ public class DataManager : MonoBehaviour {
         }
     }
 
-    public void AddEquip(string id, string count)
+    public void AddEquip(string id, string count, string refined)
     {
-        AddNodeToXML(xml_equipData, "ID", id, "COUNT", count);
+        AddEquipNodeToXML(xml_equipData, "ID", id, "COUNT", count, "REFINED", refined);
         SaveXML(xml_equipData, "EquipData");
     }
 
@@ -164,6 +168,38 @@ public class DataManager : MonoBehaviour {
 
         element.AppendChild(titleElelment);
         element.AppendChild(infoElement);
+        root.AppendChild(element);
+    }
+
+    void AddEquipNodeToXML(XmlDocument xml, string title_1, string value_1, string title_2, string value_2, string title_3, string value_3)
+    {
+        XmlNode root = xml.SelectSingleNode("Root");
+
+        foreach (XmlElement node in root)
+        {
+            if (node.ChildNodes[0].InnerText == value_1)
+            {
+                node.ChildNodes[1].InnerText = value_2;
+                node.ChildNodes[2].InnerText = value_3;
+                return;
+            }
+        }
+
+        XmlElement element = xml.CreateElement("Node");
+        element.SetAttribute("Type", "string");
+
+        XmlElement titleElelment = xml.CreateElement(title_1);
+        titleElelment.InnerText = value_1;
+
+        XmlElement infoElement = xml.CreateElement(title_2);
+        infoElement.InnerText = value_2;
+
+        XmlElement refinedElement = xml.CreateElement(title_3);
+        refinedElement.InnerText = value_3;
+
+        element.AppendChild(titleElelment);
+        element.AppendChild(infoElement);
+        element.AppendChild(refinedElement);
         root.AppendChild(element);
     }
 

@@ -109,9 +109,9 @@ public class LuaCallCSUtils {
         DataManager.m_instance.LoadNotesData();
     }
 
-    public static void AddEquip(string id, string count)
+    public static void AddEquip(string id, string count, string refined)
     {
-        DataManager.m_instance.AddEquip(id, count);
+        DataManager.m_instance.AddEquip(id, count, refined);
     }
 
     public static void UpdateItem(string id, string count)

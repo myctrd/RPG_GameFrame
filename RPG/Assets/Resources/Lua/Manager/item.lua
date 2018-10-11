@@ -31,12 +31,89 @@ local function IsTableHasKey(tb, id)
 	return false
 end
 
+function self:GetItemCountByID(id)
+	for k, v in pairs(self.itemBag_1) do
+		if k == id then
+			return v
+		end
+	end
+	for k, v in pairs(self.itemBag_2) do
+		if k == id then
+			return v
+		end
+	end
+	return 0
+end
+
+function self:GetEquipRefinedByID(id)
+	for k, v in pairs(self.equipBag_1) do
+		local info = GlobalHooks.uiUitls:StringSplit(v, ',')
+		if info[1] == id then
+			return tonumber(info[2])
+		end
+	end
+	for k, v in pairs(self.equipBag_2) do
+		local info = GlobalHooks.uiUitls:StringSplit(v, ',')
+		if info[1] == id then
+			return tonumber(info[2])
+		end
+	end
+	for k, v in pairs(self.equipBag_3) do
+		local info = GlobalHooks.uiUitls:StringSplit(v, ',')
+		if info[1] == id then
+			return tonumber(info[2])
+		end
+	end
+	for k, v in pairs(self.equipBag_4) do
+		local info = GlobalHooks.uiUitls:StringSplit(v, ',')
+		if info[1] == id then
+			return tonumber(info[2])
+		end
+	end
+	for k, v in pairs(self.equipBag_5) do
+		local info = GlobalHooks.uiUitls:StringSplit(v, ',')
+		if info[1] == id then
+			return tonumber(info[2])
+		end
+	end
+	for k, v in pairs(self.equipBag_6) do
+		local info = GlobalHooks.uiUitls:StringSplit(v, ',')
+		if info[1] == id then
+			return tonumber(info[2])
+		end
+	end
+	return 0
+end
+
 function self:GetItemBag(i)
 	if i == 1 then
 		return self.itemBag_1
 	elseif i == 2 then
 		return self.itemBag_2
 	end
+end
+
+function self:GetAllEquip()
+	local bag = {}
+	for k, v in pairs(self.equipBag_1) do
+		table.insert(bag, v)
+	end
+	for k, v in pairs(self.equipBag_2) do
+		table.insert(bag, v)
+	end
+	for k, v in pairs(self.equipBag_3) do
+		table.insert(bag, v)
+	end
+	for k, v in pairs(self.equipBag_4) do
+		table.insert(bag, v)
+	end
+	for k, v in pairs(self.equipBag_5) do
+		table.insert(bag, v)
+	end
+	for k, v in pairs(self.equipBag_6) do
+		table.insert(bag, v)
+	end
+	return bag
 end
 
 function self:GetEquipBag(i)
@@ -55,6 +132,11 @@ function self:GetEquipBag(i)
 	end
 end
 
+function self:UpdateItemData()
+	ClearAllBag()
+	CS.LuaCallCSUtils.LoadItemData()
+end
+
 function self:Init()
 	GlobalHooks.eventManager:AddListener("DataManager.ConsumeTaskItem", function(name, params)
 		self:ConsumeTaskItem(params.id)
@@ -63,7 +145,7 @@ function self:Init()
 		self:AddItem(params.id, tonumber(params.count))
 	end)
 	GlobalHooks.eventManager:AddListener("DataManager.AddEquip", function(name, params)
-		self:AddEquip(params.id)
+		self:AddEquip(params.id, params.refined)
 	end)
 	GlobalHooks.eventManager:AddListener("Common.GetEquip", function(name, params)
 		self:GetNewEquip(params.id)
@@ -71,32 +153,59 @@ function self:Init()
 	GlobalHooks.eventManager:AddListener("Common.GetItem", function(name, params)
 		self:GetNewItem(params.id, params.count)
 	end)
-	ClearAllBag()
-	CS.LuaCallCSUtils.LoadItemData()
+	self:UpdateItemData()
 end
 
-function self:AddEquip(id)
+function self:AddEquip(id, refined)
 	local data = GlobalHooks.dataReader:FindData("equip", id)
 	if data["SLOT"] == "1" then
-		table.insert(self.equipBag_1, data["ID"])
+		table.insert(self.equipBag_1, data["ID"]..","..refined)
 	elseif data["SLOT"] == "2" then
-		table.insert(self.equipBag_2, data["ID"])
+		table.insert(self.equipBag_2, data["ID"]..","..refined)
 	elseif data["SLOT"] == "3" then
-		table.insert(self.equipBag_3, data["ID"])
+		table.insert(self.equipBag_3, data["ID"]..","..refined)
 	elseif data["SLOT"] == "4" then
-		table.insert(self.equipBag_4, data["ID"])
+		table.insert(self.equipBag_4, data["ID"]..","..refined)
 	elseif data["SLOT"] == "5" then
-		table.insert(self.equipBag_5, data["ID"])
+		table.insert(self.equipBag_5, data["ID"]..","..refined)
 	elseif data["SLOT"] == "6" then
-		table.insert(self.equipBag_6, data["ID"])
+		table.insert(self.equipBag_6, data["ID"]..","..refined)
 	end
 end
 
-function self:GetNewEquip(id)
+function self:GetNewEquip(id, refined)
 	local data = GlobalHooks.dataReader:FindData("equip", id)
 	GlobalHooks.uiUitls:ShowFloatingMsg(GetText(data["NAME"]).." + 1")
-	self:AddEquip(id);
-	CS.LuaCallCSUtils.AddEquip(id, "1")
+	local r = "0"
+	if refined then
+		r = refined
+	end
+	self:AddEquip(id, r)
+	CS.LuaCallCSUtils.AddEquip(id, "1", r)
+end
+
+function self:RefineEquip(id, points)
+	local data = GlobalHooks.dataReader:FindData("equip", id)
+	local points_max = tonumber(data["RPOINTS"])
+	local points_pre = self:GetEquipRefinedByID(id)
+	if points_pre + points < points_max then
+		CS.LuaCallCSUtils.AddEquip(id, "1", tostring(points + points_pre))
+	else
+		self.playerList = CS.LuaCallCSUtils.GetPlayerList()
+		for i = 0, 3 do
+			if self.playerList[i] then
+				local playerData = CS.LuaCallCSUtils.GetPlayerData(i)
+				if playerData.equip[tonumber(data["SLOT"]) - 1] == tonumber(data["ID"]) then
+					CS.LuaCallCSUtils.SetPlayerEquip(i, tonumber(data["SLOT"]) - 1, tonumber(data["REFINED"]))
+				end
+			end
+		end
+		CS.LuaCallCSUtils.AddEquip(id, "0", "0")
+		id = data["REFINED"]
+		CS.LuaCallCSUtils.AddEquip(id, "1", tostring(points + points_pre - points_max))
+	end
+	self:UpdateItemData()
+	GlobalHooks.openUI.forge:LoadEquip(id)
 end
 
 function self:AddItem(id, count)
@@ -127,18 +236,6 @@ function self:ConsumeTaskItem(id)
 	if(self.itemBag_1[id])then
 		self.itemBag_1[id] = 0
 		CS.LuaCallCSUtils.UpdateItem(id, "0")
-	end
-end
-
-function self:ConsumeItem(id, count)  --使用消耗品
-	if(self.itemBag_2[id] and self.itemBag_2[id] >= count)then
-		local data = GlobalHooks.dataReader:FindData("item", id)
-		self.itemBag_2[id] = self.itemBag_2[id] - count
-		GlobalHooks.uiUitls:ShowFloatingMsg(GetText(data["NAME"]) .." - "..count)
-		GlobalHooks.eventManager:Broadcast("Item.UpdateItemCount", {})
-		CS.LuaCallCSUtils.UpdateItem(id, self.itemBag_2[id])
-	else
-		GlobalHooks.uiUitls:ShowFloatingMsg(GetText("Tip_NotEnoughItems"))
 	end
 end
 

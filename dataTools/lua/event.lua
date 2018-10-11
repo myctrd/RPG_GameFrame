@@ -5,7 +5,7 @@ return {
 ["10003"] = {"10003","Map2ToMap1","2","1,8,5","0",},
 ["10004"] = {"10004","Story_1_1","0;3","InfoBoard,Story_1_1;RejecStory_1","0",},
 ["10005"] = {"10005","Merchant","4","Merchant,MerchantIntro,LetMeLook.SellSomething.Byebye,10006.10017.0","0",},
-["10006"] = {"10006","OpenShop","5","UIPanelShop,UpdateShopItem,20001.20002.20003.20004.20005","0",},
+["10006"] = {"10006","OpenShop","5","UIPanelShop,UpdateShopItem,20001.20002","0",},
 ["10007"] = {"10007","GetGold","6","99999999","0",},
 ["10008"] = {"10008","MoleTalk","4","Mole,NeedLock,HelpHim.DontHelp,10010.0","0",},
 ["10009"] = {"10009","MoleNotes","7","10001","0",},
@@ -17,4 +17,7 @@ return {
 ["10015"] = {"10015","GetRibbon","1","equip,40201,1","0",},
 ["10016"] = {"10016","ChloeJoin","10","10004","10014",},
 ["10017"] = {"10017","SellItem","11","","0",},
+["10018"] = {"10018","BlackSmith","4","BlackSmith,BlackSmithIntro,ForgeSomething.BuySomething.Byebye,10020.10019.0","0",},
+["10019"] = {"10019","SmithShop","5","UIPanelShop,UpdateShopItem,20003.20004.20005","0",},
+["10020"] = {"10020","OpenForge","5","UIPanelForge","0",},
 }

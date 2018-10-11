@@ -73,9 +73,9 @@ function self:RemoveAllListener()
 end
 
 function self:Broadcast(...)
-	CS.EventManager.LuaBroadcast((...))
+	CS.EventManager.LuaBroadcast(...)
 	for _,v in ipairs(GlobalCallBacks) do
-		v((...))
+		v(...)
 	end
 end
 

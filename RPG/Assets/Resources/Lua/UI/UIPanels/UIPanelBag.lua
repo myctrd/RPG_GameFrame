@@ -36,6 +36,11 @@ local UIName = {
 	"content_bag",
 }
 
+function self:Close()
+	OnExit()
+    self.ui:Close()
+end
+
 local function FindUI()
 	for i = 1, #UIName do
 		self[UIName[i]] = self.ui:GetChild(UIName[i])
@@ -46,8 +51,7 @@ local function FindUI()
 		end)
 	end
 	self["btn_back"]:AddListener(function()
-		OnExit()
-        self.ui:Close()
+		self:Close()
     end)
 	
 	OnSelectCol(1)

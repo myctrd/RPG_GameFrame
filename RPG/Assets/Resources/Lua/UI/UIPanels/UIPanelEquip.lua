@@ -8,10 +8,8 @@ local function UpdateItem()
 	end
 	local equipBag = GlobalHooks.item:GetEquipBag(self.selectedIndex)
 	for k, v in pairs(equipBag)do
-		local data = GlobalHooks.dataReader:FindData("equip", v)
-		-- if tonumber(data["PRO"]) == CS.LuaCallCSUtils.GetPlayerData(GlobalHooks.openUI.roleInfo.id).m_Pro then
-			GlobalHooks.openUI:InitUIComponent("UIComponentItem", self["content_bag"]:GetTransfrom(), 0, {itemType = 2, id = v})
-		-- end
+		local info = GlobalHooks.uiUitls:StringSplit(v, ',')
+		GlobalHooks.openUI:InitUIComponent("UIComponentItem", self["content_bag"]:GetTransfrom(), 0, {itemType = 2, id = info[1]})
 	end
 end
 

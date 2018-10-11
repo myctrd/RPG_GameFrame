@@ -17,6 +17,10 @@ end
 
 function self:Init()
 
+	GlobalHooks.eventManager:AddListener("Forge.SelectEquip", function(name, params)
+		GlobalHooks.openUI.forge:LoadEquip(params.id)
+	end)
+
 	GlobalHooks.eventManager:AddListener("Hover.TalentInfo", function(name, params)
 		GlobalHooks.openUI.talent:ShowTalentInfo(params.subInfo)
 	end)
